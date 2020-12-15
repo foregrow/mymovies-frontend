@@ -1,0 +1,27 @@
+<div class="container">
+    <!-- w-25,75,50.. klasa za width tabele  -->
+      <table class="table table-hover w-75">
+          <thead>
+            <tr>
+              <th >#</th>
+              <th>id</th>
+              <th>title</th>
+              <th>start time</th>
+              <th>end time</th>
+              <th>cid</th>
+            </tr>
+          
+          </thead>
+          <tbody *ngFor="let obj of movies; index as i">
+  
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{obj['id']}}</td>
+              <td>{{obj['title']}}</td>
+              <td>{{obj['startTime'] | date:'short':'+0000'}}</td>
+              <td>{{obj['endTime'] | date:'short':'+0000'}}</td>
+              <td>{{obj['channelId']}}</td>
+          </tr>
+          </tbody>
+        </table>
+  </div>

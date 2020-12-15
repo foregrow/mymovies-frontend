@@ -1,0 +1,17 @@
+<div class="mt-5 col-3">
+    <form>
+        <h2 class="h2">Login</h2>
+
+            <div class="form-group">
+                <input formControlName="userName" type="text" placeholder="Username"
+                    class="form-control">
+            </div>
+    
+            <div class="form-group">
+                <input formControlName="password" type="password" placeholder="Password"
+                    class="form-control">
+            </div>
+    
+            <button class="btn btn-primary" (click)="submitLogin()" type="submit" >Log In</button>
+            <button class="btn btn-secondary ml-1" (click)="toRegistration()" type="button">Register</button>
+    </form>
