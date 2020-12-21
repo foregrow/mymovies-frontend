@@ -1,9 +1,9 @@
 <div class="mt-5 col-3">
-    <form>
+    <form [formGroup]="loginForm">
         <h2 class="h2">Login</h2>
 
             <div class="form-group">
-                <input formControlName="userName" type="text" placeholder="Username"
+                <input formControlName="email" type="text" placeholder="Email"
                     class="form-control">
             </div>
     
@@ -13,5 +13,6 @@
             </div>
     
             <button class="btn btn-primary" (click)="submitLogin()" type="submit" >Log In</button>
-            <button class="btn btn-secondary ml-1" (click)="toRegistration()" type="button">Register</button>
+            <button class="btn btn-secondary ml-1" (click)="goToRegistration()" type="button" >No account? Register here</button>
     </form>
+</div>

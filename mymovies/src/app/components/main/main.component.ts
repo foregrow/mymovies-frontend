@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { error } from 'protractor';
 import { ExternalApiService } from 'src/app/services/external-api.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-main',
@@ -13,11 +15,13 @@ export class MainComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _externalApiService: ExternalApiService
+    private _externalApiService: ExternalApiService,
+    private _us: UserService,
   ) { }
 
   ngOnInit(): void {
     this.getExternalToken();
+    
   }
   getExternalToken(){
     this._externalApiService.getExternalAccessToken().subscribe(

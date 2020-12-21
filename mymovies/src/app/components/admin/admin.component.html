@@ -1,1 +1,23 @@
-<p>admin works!</p>
+<nav id="navnav" class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="us.getRole()==='ADMIN'">
+    <a class="navbar-brand" (click)="home()">Welcome to mymovies admin page</a>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <a class="nav-link" style="cursor:pointer" (click)="users()">
+        <i class="fa fa-sign-out ml-5" aria-hidden="true"></i> Users</a>  
+        <a class="nav-link" style="cursor:pointer" (click)="persons()">
+        <i class="fa fa-sign-out ml-5" aria-hidden="true"></i> Persons</a>  
+        <a class="nav-link" style="cursor:pointer" (click)="moviestvshows()">
+        <i class="fa fa-sign-out ml-5" aria-hidden="true"></i> Movies/TV Shows</a>  
+        <a class="nav-link" style="cursor:pointer" (click)="genres()">
+        <i class="fa fa-sign-out ml-5" aria-hidden="true"></i> Genres</a>   
+        <a class="nav-link" style="cursor:pointer" (click)="seasons()">
+        <i class="fa fa-sign-out ml-5" aria-hidden="true"></i> Seasons</a>   
+        <a class="nav-link" style="cursor:pointer" (click)="episodes()">
+        <i class="fa fa-sign-out ml-5" aria-hidden="true"></i> Episodes</a>        
+          <a class="nav-link" style="cursor:pointer" (click)="us.logout()">
+          <i class="fa fa-sign-out ml-5" aria-hidden="true"></i> Logout</a>      
+      </ul>
+    </div>
+  </nav>  
+  <router-outlet></router-outlet>
