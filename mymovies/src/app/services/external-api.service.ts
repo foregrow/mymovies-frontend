@@ -10,28 +10,17 @@ export class ExternalApiService {
   constructor(private _http: HttpClient) { }
 
   getExternalAccessToken(){
-    let headers = new HttpHeaders({
-      'Authorization': Statics.authHeadersValue });
-    let options = { headers: headers };
-    
-    return this._http.post<any>(Statics.externalTokenURL,null,options);
+    return this._http.post<any>(Statics.externalTokenURL,null);
   }
 
   getChannels(){
-    let headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getExternalAccessTokenFromLocalStorage()}` });
-    let options = { headers: headers };
-    let channelsData = this._http.get<any>(Statics.channelsUrl,options);
+    let channelsData = this._http.get<any>(Statics.channelsUrl);
     return channelsData;
   }
 
   getChannelsMovies(cid:any){
-    let headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getExternalAccessTokenFromLocalStorage()}` });
-    let options = { headers: headers };
-
     return this._http.get<any>(
-      `${Statics.channelsMoviesUrl}fromTime=${DateUtils.getFromAndToDates().from}&toTime=${DateUtils.getFromAndToDates().to}&communityId=1&languageId=404&cid=${cid}`,options);
+      `${Statics.channelsMoviesUrl}fromTime=${DateUtils.getFromAndToDates().from}&toTime=${DateUtils.getFromAndToDates().to}&communityId=1&languageId=404&cid=${cid}`);
   }
 
   setExternalAccessTokenInLocalStorage(accessToken:any){

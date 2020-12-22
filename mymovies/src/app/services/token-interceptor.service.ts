@@ -13,18 +13,21 @@ export class TokenInterceptorService implements HttpInterceptor {
   intercept(req:any,next:any){
     let tokenizedReq;
     if(req.url.startsWith(Statics.publicAPIBaseURL)){
+      let externalAPIService = this.inj.get(ExternalApiService);
       if(req.url!==Statics.externalTokenURL){ 
-        let externalAPIService = this.inj.get(ExternalApiService);
         tokenizedReq = req.clone({
           setHeaders: {
             Authorization: `Bearer ${externalAPIService.getExternalAccessTokenFromLocalStorage()}`
           }
+        });  
+      }else{
+        tokenizedReq = req.clone({
+          setHeaders: {
+            Authorization: Statics.authHeadersValue
+          }
         });
-        
       }
-      //ignores headers
-      return next.handle(req);
-      
+       
     }else{
       let userService = this.inj.get(UserService);
       tokenizedReq = req.clone({
