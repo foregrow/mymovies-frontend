@@ -10,23 +10,27 @@ import { Statics } from '../utils/statics';
 })
 export class UserService {
 
-  private static readonly usersBaseURL: string = `${Statics.serverBaseURL}/${Statics.api}/${Statics.users}`;
+  private static readonly entityBaseURL: string = `${Statics.serverBaseURL}/${Statics.api}/${Statics.users}`;
   constructor(private _http: HttpClient,private _router: Router) { }
 
   getAll() : Observable<any>{
-    return this._http.get<any>(UserService.usersBaseURL);
+    return this._http.get<any>(UserService.entityBaseURL);
   }
 
   getById(id:any): Observable<any>{
-    return this._http.get<any>(`${UserService.usersBaseURL}/${+id}`);
+    return this._http.get<any>(`${UserService.entityBaseURL}/${+id}`);
   }
 
   add(data:any){
-    return this._http.post<any>(UserService.usersBaseURL,data);
+    return this._http.post<any>(UserService.entityBaseURL,data);
   }
 
   update(data:any){
-    return this._http.put<any>(UserService.usersBaseURL,data);
+    return this._http.put<any>(UserService.entityBaseURL,data);
+  }
+
+  delete(id:any): Observable<any[]>{
+    return this._http.delete<any[]>(`${UserService.entityBaseURL}/${+id}`);
   }
   
   login(userData:any){

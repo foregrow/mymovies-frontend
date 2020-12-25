@@ -12,7 +12,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(req:any,next:any){
     let tokenizedReq;
-    if(req.url.startsWith(Statics.publicAPIBaseURL)){
+    if(req.url.startsWith(Statics.externalAPIBaseURL)){
       let externalAPIService = this.inj.get(ExternalApiService);
       if(req.url!==Statics.externalTokenURL){ 
         tokenizedReq = req.clone({

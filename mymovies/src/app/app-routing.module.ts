@@ -13,6 +13,9 @@ import { PersonsComponent } from './components/admin/persons/persons.component';
 import { EpisodesComponent } from './components/admin/episodes/episodes.component';
 import { SeasonsComponent } from './components/admin/seasons/seasons.component';
 import { MtsComponent } from './components/admin/mts/mts.component';
+import { ErrorComponent } from './components/error/error.component';
+import { PersondetailComponent } from './components/admin/persons/persondetail/persondetail.component';
+import { MtsdetailComponent } from './components/admin/mts/mtsdetail/mtsdetail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -24,10 +27,15 @@ const routes: Routes = [
     },
   children: [
     {path:"users", component:UsersComponent},
+
     {path:"persons", component:PersonsComponent},
+    {path:"person-detail/:p", component:PersondetailComponent},
+
     {path:"seasons", component:SeasonsComponent},
     {path:"episodes", component:EpisodesComponent},
+
     {path:"moviestvshows", component:MtsComponent},
+    {path:"movietvshow-detail/:p", component:MtsdetailComponent},
     {path:"genres", component:GenresComponent},
   ]},
   {path:"main", component:MainComponent, canActivate:[AuthGuard,RoleGuard],
@@ -35,6 +43,8 @@ const routes: Routes = [
       roles: ['USER']
     }},
   {path:"channels-movies",component:ChannelMoviesComponent, canActivate:[AuthGuard]},
+
+  {path: 'error', component:ErrorComponent},
   {path: '**', redirectTo: 'main', pathMatch: 'full'}
 ];
 
@@ -44,5 +54,5 @@ const routes: Routes = [
   providers: []
 })
 export class AppRoutingModule { }
-export const routingComponents = [LoginComponent,AdminComponent,MainComponent,ChannelMoviesComponent,RegisterComponent,
-UsersComponent,GenresComponent,SeasonsComponent,EpisodesComponent,PersonsComponent,MtsComponent]
+export const routingComponents = [ErrorComponent,LoginComponent,AdminComponent,MainComponent,ChannelMoviesComponent,RegisterComponent,
+UsersComponent,GenresComponent,SeasonsComponent,EpisodesComponent,PersonsComponent,PersondetailComponent,MtsComponent,MtsdetailComponent]

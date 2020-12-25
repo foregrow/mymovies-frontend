@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <h4 class="mt-5 mb-3" *ngIf="this.addEditParam === 'add'">Person</h4>
+    <h4 class="mt-5 mb-3" *ngIf="this.addEditParam !== 'add'">Person's details</h4>
+    <form [formGroup]="addEditForm" class="w-25">
+        <div class="form-group">
+            <label>First name</label>
+            <input formControlName="firstName" type="text" class="form-control">
+            <small [class.d-none]="firstName?.valid || firstName?.untouched" class="text-danger">First name is required!</small> 
+        </div>
+        <div class="form-group">
+            <label>Last name</label>
+            <input formControlName="lastName" type="text" class="form-control">
+            <small [class.d-none]="lastName?.valid || lastName?.untouched" class="text-danger">Last name is required!</small> 
+        </div>
+        <div class="form-group">
+            <label>Enter bio</label>
+            <textarea rows="7" style="resize: none;" formControlName="bio" type="text" class="form-control"></textarea>
+            <small [class.d-none]="bio?.valid || bio?.untouched" class="text-danger">Some biography is required!</small> 
+        </div>
+        <div class="form-group">
+            <label>Born</label>
+            <input formControlName="bornDate" type="datetime-local" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Died</label>
+            <input formControlName="diedDate" type="datetime-local" class="form-control">
+        </div>
+    <button *ngIf="this.addEditParam === 'add'" class="btn btn-primary" (click)="submit('add')" [disabled]="addEditForm?.invalid" type="submit">Add</button>
+    <button *ngIf="this.addEditParam !== 'add'" class="btn btn-primary" (click)="submit('edit')" [disabled]="addEditForm?.invalid" type="submit">Edit</button>
+
+</form>
+</div>

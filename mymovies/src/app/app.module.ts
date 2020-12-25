@@ -9,6 +9,9 @@ import { UserService } from './services/user.service';
 import { AuthGuard } from './guards/auth.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { RoleGuard } from './guards/role.guard';
+import { PersonService } from './services/person.service';
+import { DatePipe } from '@angular/common';
+import { MovietvshowService } from './services/movietvshow.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,7 @@ import { RoleGuard } from './guards/role.guard';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [ExternalApiService,AuthGuard,UserService,
+  providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

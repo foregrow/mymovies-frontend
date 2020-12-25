@@ -1,1 +1,29 @@
-<p>persons works!</p>
+<div class="container">
+    <h2 class="mt-5 mb-5">All persons<a class="btn btn-sm text-white btn-success ml-3" (click)="detailsOrAdd('add')">Add new person</a></h2>
+    <!-- w-25,75,50.. klasa za width tabele  -->
+      <table class="table table-hover w-75">
+          <thead>
+            <tr>
+              <th >#</th>
+              <th> First name</th>
+              <th> Last name</th>
+              <th> Born date</th>
+              <th> Died date</th>
+            </tr>
+          
+          </thead>
+          <tbody *ngFor="let obj of persons; index as i">
+  
+            <tr>
+              <td>{{i+1}}</td>
+              <td>{{obj.firstName}}</td>
+              <td>{{obj.lastName}}</td>
+              <td>{{obj.bornDate | date:'short'}}</td>
+              <td *ngIf="obj.diedDate!=null">{{obj.diedDate | date:'short'}}</td>
+              <td *ngIf="obj.diedDate==null">/</td>
+              <td><a class="btn btn-sm text-white btn-primary" (click)="detailsOrAdd(obj.id)">Details</a></td>
+              <td><a class="btn btn-sm text-white btn-danger" (click)="delete(obj.id)">Delete</a></td>
+          </tr>
+          </tbody>
+        </table>
+  </div>
