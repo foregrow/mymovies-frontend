@@ -12,21 +12,28 @@ import { RoleGuard } from './guards/role.guard';
 import { PersonService } from './services/person.service';
 import { DatePipe } from '@angular/common';
 import { MovietvshowService } from './services/movietvshow.service';
+import { SeasonsFilterPipe } from './filters/seasonsFilter.pipe';
+import { GenreService } from './services/genre.service';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
+    SeasonsFilterPipe
     
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
-  providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,
+  providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

@@ -1,1 +1,95 @@
-<p>mtsdetail works!</p>
+<div class="container-fluid">
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Add Movie</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">Add TV Show</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Movie details</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">TV Show details</h4>
+    <form [formGroup]="addEditForm" class="w-25">
+        <div class="form-group">
+            <label>Name</label>
+            <input formControlName="name" type="text" class="form-control">
+            <small [class.d-none]="name?.valid || name?.untouched" class="text-danger">Name is required!</small> 
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea rows="7" style="resize: none;" formControlName="description" type="text" class="form-control"></textarea>
+            <small [class.d-none]="description?.valid || description?.untouched" class="text-danger">Some description is required!</small> 
+        </div>
+        <div class="form-group">
+            <label>Storyline</label>
+            <textarea rows="7" style="resize: none;" formControlName="storyline" type="text" class="form-control"></textarea>
+            <small [class.d-none]="storyline?.valid || storyline?.untouched" class="text-danger">Some storyline is required!</small> 
+        </div>
+        <div class="form-group">
+            <label>Length (minutes)</label>
+            <input formControlName="lengthMinutes" type="text" class="form-control">
+            <small [class.d-none]="lengthMinutes?.valid || lengthMinutes?.untouched" class="text-danger">Length is required and has to be valid number!</small> 
+        </div>
+        <div class="form-group">
+            <label>Release date</label>
+            <input formControlName="releaseDate" type="datetime-local" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Release year</label>
+            <input formControlName="releaseYear" type="text" class="form-control">
+            <small [class.d-none]="releaseYear?.valid || releaseYear?.untouched" class="text-danger">Year is required and has to be valid!</small> 
+        </div>
+        <div class="form-group">
+            <label>Country</label>
+            <input formControlName="country" type="text" class="form-control">
+            <small [class.d-none]="country?.valid || country?.untouched" class="text-danger">Country is required!</small> 
+        </div>
+        <div class="form-group">
+            <label>Language</label>
+            <input formControlName="language" type="text" class="form-control">
+            <small [class.d-none]="language?.valid || language?.untouched" class="text-danger">Language is required and correct format is: (AAA)</small> 
+        </div>
+        <div class="form-group">
+            <label class="control-label">Type</label>
+            <select class="form-control" formControlName="type">
+                <option selected>Choose a type</option>
+                <option *ngFor="let type of mtsTypes" [ngValue]="type" >
+                  {{type}}
+                </option>
+              </select> 
+        </div>
+        
+        <div *ngIf="this.addEditParam === 'add'" class="form-group">
+            <label class="control-label mr-3">Choose genres</label>
+            <mat-form-field>
+                <input formControlName="genre" type="text" class="form-control" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayGenre">
+                    <mat-option *ngFor="let obj of genres" [value]="obj" >
+                        {{obj.type}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <button class="btn btn-danger" (click)="clearGenres()" type="button" [disabled]="chosenGenres.length===0">Clear</button>
+        </div>
+        <div class="form-group">
+            <label>Chosen genres</label>
+            <input formControlName="alreadyChosenGenres" type="text" class="form-control">
+        </div>
+    <button *ngIf="this.addEditParam === 'add'" class="btn btn-primary" (click)="submit('add')" [disabled]="addEditForm?.invalid || !typeChosen || chosenGenres.length===0" type="submit">Add</button>
+    <button *ngIf="this.addEditParam !== 'add'" class="btn btn-primary" (click)="submit('edit')" [disabled]="addEditForm?.invalid" type="submit">Edit</button>
+
+</form> 
+
+<div *ngIf="this.addEditParam !== 'add' && this.movietvshow!==undefined && this.movietvshow.type=='TV_SHOW'" class="w-50">
+    <h2 class="mt-5">List of seasons</h2>
+<table class="table table-hover">
+<thead>
+  <tr>
+    <th>#</th>
+    <th>Release year</th>
+    <th>Number of episodes</th>
+  </tr>
+</thead>
+<tbody *ngFor="let season of movietvshow.seasons | seasonsFilter">
+  <tr>
+    <td>{{season.serialNumber}}</td><td>{{season.releaseYear}}</td><td>{{season.episodes.length}}</td>
+  </tr>
+</tbody>
+</table>
+</div>
+    
+</div>
