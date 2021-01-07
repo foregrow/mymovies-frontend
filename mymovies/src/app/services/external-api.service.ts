@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DateUtils } from '../utils/dateutils';
 import { Statics } from '../utils/statics';
@@ -10,18 +10,32 @@ export class ExternalApiService {
   constructor(private _http: HttpClient) { }
 
   getExternalAccessToken(){
-    return this._http.post<any>(Statics.externalTokenURL,null);
+    return this._http.post<any>(Statics.externalTokenURL,null,{params: {
+      'grant_type': 'client_credentials'
+    }});
   }
 
   getChannels(){
-    let channelsData = this._http.get<any>(Statics.channelsUrl);
+    let channelsData = this._http.get<any>(Statics.channelsUrl,{params:{
+      'channelType':'TV',
+      'communityId': '1',
+      'languageId': '404'
+    }})
     return channelsData;
   }
 
   getChannelsMovies(cid:any){
-    return this._http.get<any>(
-      `${Statics.channelsMoviesUrl}fromTime=${DateUtils.getFromAndToDates().from}&toTime=${DateUtils.getFromAndToDates().to}&communityId=1&languageId=404&cid=${cid}`);
+    const req = this._http.get<any>(Statics.channelsMoviesUrl,
+      {params:{
+        'fromTime': DateUtils.getFromAndToDates().from,
+        'toTime': DateUtils.getFromAndToDates().to,
+        'communityId':'1',
+        'languageId':'404',
+        'cid':cid
+      }});
+      return req;
   }
+  
 
   setExternalAccessTokenInLocalStorage(accessToken:any){
     if(accessToken){

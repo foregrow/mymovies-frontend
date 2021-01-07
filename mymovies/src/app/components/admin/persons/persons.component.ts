@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Person } from 'src/app/models/persons';
 import { PersonService } from 'src/app/services/person.service';
 
 @Component({
@@ -8,13 +12,18 @@ import { PersonService } from 'src/app/services/person.service';
   styleUrls: ['./persons.component.css']
 })
 export class PersonsComponent implements OnInit {
-
-  persons:any;
+  displayedColumns: string[] = ['position','firstName','lastName','bornDate','diedDate','details','delete']
+  persons:Person[] =[];
+  dataSource =new MatTableDataSource<Person>(this.persons);
+  
+  @ViewChild(MatPaginator) paginator:MatPaginator;
+  @ViewChild(MatSort) sort:MatSort;
   constructor(private _ps:PersonService,
     private _router:Router,private _route:ActivatedRoute) { }
     
   ngOnInit(): void {
     this.fetchData();
+    
   }
   
   fetchData() {
@@ -22,14 +31,25 @@ export class PersonsComponent implements OnInit {
          .subscribe(data => 
           {
             this.persons = data;
+            this.setDataSource();
           },
           error=>{
-            this.errorPage();
+            console.log(error);
           });
+  }
+
+  setDataSource(){
+    this.dataSource.data = this.persons;
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   detailsOrAdd(param:any){
     this._router.navigate([`admin/person-detail/${param}`]);
+  }
+
+  applyFilter(filterValue:string){
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 
@@ -37,13 +57,13 @@ export class PersonsComponent implements OnInit {
     console.log(id);
     this._ps.delete(id)
       .subscribe(
-        data => {this.persons = data},
+        data => {this.persons = data,this.setDataSource()},
         error=>{ alert('Error while deleting user!');}
       ); 
   }
 
-  errorPage(){
-    this._router.navigate(['error']);
-  }
+  // errorPage(){
+  //   this._router.navigate(['error']);
+  // }
 
 }

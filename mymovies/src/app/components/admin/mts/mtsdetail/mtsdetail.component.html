@@ -1,95 +1,336 @@
 <div class="container-fluid">
-    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Add Movie</h4>
-    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">Add TV Show</h4>
-    <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Movie details</h4>
-    <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">TV Show details</h4>
-    <form [formGroup]="addEditForm" class="w-25">
-        <div class="form-group">
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Add
+        Movie</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">Add
+        TV Show</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Movie
+        details</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">TV
+        Show details</h4>
+    <form [formGroup]="addEditForm" class="w-50">
+        <div class="form-group w-50">
             <label>Name</label>
             <input formControlName="name" type="text" class="form-control">
-            <small [class.d-none]="name?.valid || name?.untouched" class="text-danger">Name is required!</small> 
+            <small [class.d-none]="name?.valid || name?.untouched" class="text-danger">Name is required!</small>
         </div>
-        <div class="form-group">
+        <div class="form-group  w-50">
             <label>Description</label>
-            <textarea rows="7" style="resize: none;" formControlName="description" type="text" class="form-control"></textarea>
-            <small [class.d-none]="description?.valid || description?.untouched" class="text-danger">Some description is required!</small> 
+            <textarea rows="7" style="resize: none;" formControlName="description" type="text"
+                class="form-control"></textarea>
+            <small [class.d-none]="description?.valid || description?.untouched" class="text-danger">Some description is
+                required!</small>
         </div>
-        <div class="form-group">
+        <div class="form-group  w-50">
             <label>Storyline</label>
-            <textarea rows="7" style="resize: none;" formControlName="storyline" type="text" class="form-control"></textarea>
-            <small [class.d-none]="storyline?.valid || storyline?.untouched" class="text-danger">Some storyline is required!</small> 
+            <textarea rows="7" style="resize: none;" formControlName="storyline" type="text"
+                class="form-control"></textarea>
+            <small [class.d-none]="storyline?.valid || storyline?.untouched" class="text-danger">Some storyline is
+                required!</small>
         </div>
-        <div class="form-group">
-            <label>Length (minutes)</label>
-            <input formControlName="lengthMinutes" type="text" class="form-control">
-            <small [class.d-none]="lengthMinutes?.valid || lengthMinutes?.untouched" class="text-danger">Length is required and has to be valid number!</small> 
-        </div>
-        <div class="form-group">
+        <div class="form-group  w-50">
             <label>Release date</label>
             <input formControlName="releaseDate" type="datetime-local" class="form-control">
         </div>
-        <div class="form-group">
+        <div class="form-group  w-25">
+            <label>Length (minutes)</label>
+            <input formControlName="lengthMinutes" type="text" class="form-control">
+            <small [class.d-none]="lengthMinutes?.valid || lengthMinutes?.untouched" class="text-danger">Length is
+                required and has to be valid number!</small>
+        </div>
+
+        <div class="form-group  w-25">
             <label>Release year</label>
             <input formControlName="releaseYear" type="text" class="form-control">
-            <small [class.d-none]="releaseYear?.valid || releaseYear?.untouched" class="text-danger">Year is required and has to be valid!</small> 
+            <small [class.d-none]="releaseYear?.valid || releaseYear?.untouched" class="text-danger">Year is required
+                and has to be valid!</small>
         </div>
-        <div class="form-group">
+        <div class="form-group  w-25">
             <label>Country</label>
             <input formControlName="country" type="text" class="form-control">
-            <small [class.d-none]="country?.valid || country?.untouched" class="text-danger">Country is required!</small> 
+            <small [class.d-none]="country?.valid || country?.untouched" class="text-danger">Country is
+                required!</small>
         </div>
-        <div class="form-group">
+        <div class="form-group w-25">
             <label>Language</label>
             <input formControlName="language" type="text" class="form-control">
-            <small [class.d-none]="language?.valid || language?.untouched" class="text-danger">Language is required and correct format is: (AAA)</small> 
+            <small [class.d-none]="language?.valid || language?.untouched" class="text-danger">Language is required and
+                correct format is: (AAA)</small>
         </div>
-        <div class="form-group">
+        <div class="form-group w-25">
             <label class="control-label">Type</label>
             <select class="form-control" formControlName="type">
                 <option selected>Choose a type</option>
-                <option *ngFor="let type of mtsTypes" [ngValue]="type" >
-                  {{type}}
+                <option *ngFor="let type of mtsTypes" [ngValue]="type">
+                    {{type}}
                 </option>
-              </select> 
+            </select>
         </div>
-        
-        <div *ngIf="this.addEditParam === 'add'" class="form-group">
+
+        <div *ngIf="this.addEditParam === 'add'" class="form-group w-50">
             <label class="control-label mr-3">Choose genres</label>
             <mat-form-field>
                 <input formControlName="genre" type="text" class="form-control" matInput [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayGenre">
-                    <mat-option *ngFor="let obj of genres" [value]="obj" >
+                    <mat-option *ngFor="let obj of genres" [value]="obj">
                         {{obj.type}}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
-            <button class="btn btn-danger" (click)="clearGenres()" type="button" [disabled]="chosenGenres.length===0">Clear</button>
+            <button class="btn btn-danger" (click)="clearGenres()" type="button"
+                [disabled]="chosenGenres.length===0">Clear</button>
         </div>
-        <div class="form-group">
+        <div class="form-group w-50">
             <label>Chosen genres</label>
             <input formControlName="alreadyChosenGenres" type="text" class="form-control">
         </div>
-    <button *ngIf="this.addEditParam === 'add'" class="btn btn-primary" (click)="submit('add')" [disabled]="addEditForm?.invalid || !typeChosen || chosenGenres.length===0" type="submit">Add</button>
-    <button *ngIf="this.addEditParam !== 'add'" class="btn btn-primary" (click)="submit('edit')" [disabled]="addEditForm?.invalid" type="submit">Edit</button>
+        <div *ngIf="this.addEditParam !== 'add'" class="form-group w-50">
+            <label class="control-label mr-3">Add person as cast</label>
+            <mat-form-field>
+                <input formControlName="person" type="text" class="form-control" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPerson">
+                    <mat-option *ngFor="let obj of persons" [value]="obj">
+                        {{obj.firstName}} {{obj.lastName}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <button class="btn btn-danger" (click)="clearPersons()" type="button"
+                [disabled]="chosenPersons.length===0">Clear</button>
+        </div>
+        <div class="form-group w-50">
+            <label>Chosen persons</label>
+            <textarea rows="7" style="resize: none;" formControlName="alreadyChosenPersons" type="text"
+                class="form-control"></textarea>
+        </div>
+        <button *ngIf="this.addEditParam === 'add'" class="btn btn-primary" (click)="submit('add')"
+            [disabled]="addEditForm?.invalid || !typeChosen || chosenGenres.length===0" type="submit">Add</button>
+        <button *ngIf="this.addEditParam !== 'add'" class="btn btn-primary" (click)="submit('edit')"
+            [disabled]="addEditForm?.invalid" type="submit">Edit</button>
 
-</form> 
+    </form>
 
-<div *ngIf="this.addEditParam !== 'add' && this.movietvshow!==undefined && this.movietvshow.type=='TV_SHOW'" class="w-50">
-    <h2 class="mt-5">List of seasons</h2>
-<table class="table table-hover">
-<thead>
-  <tr>
-    <th>#</th>
-    <th>Release year</th>
-    <th>Number of episodes</th>
-  </tr>
-</thead>
-<tbody *ngFor="let season of movietvshow.seasons | seasonsFilter">
-  <tr>
-    <td>{{season.serialNumber}}</td><td>{{season.releaseYear}}</td><td>{{season.episodes.length}}</td>
-  </tr>
-</tbody>
-</table>
-</div>
-    
+    <div *ngIf="this.addEditParam !== 'add' && movietvshow!==undefined" class="w-100">
+        <h2 class="mt-5">Full cast <a class="btn btn-sm text-white btn-success ml-3" (click)="addCast()">Add cast</a>
+        </h2>
+        <form [formGroup]="personEditForm" class="form-inline" *ngIf="addCastChosen">
+            <div class="form-group">
+                <mat-form-field>
+                    <input formControlName="newPersonFirstLast" placeholder="Choose person" type="text"
+                        class="form-control" matInput [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPerson">
+                        <mat-option *ngFor="let obj of persons" [value]="obj">
+                            {{obj.firstName}} {{obj.lastName}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+            </div>
+            <div class="p-3">|</div>
+            <div class="form-group">
+                <input formControlName="newPersonCastName" placeholder="As" type="text" class="form-control">
+            </div>
+            <div class="p-3">|</div>
+            <div class="form-group">
+                <select class="form-control" formControlName="newPersonActorRole">
+                    <option value="" selected>Choose actor role</option>
+                    <option value="SUPPORTING">SUPPORTING</option>
+                    <option value="LEADING">LEADING</option>
+                </select>
+            </div>
+            <div class="p-3">|</div>
+            <div class="form-group">
+                <select class="form-control" formControlName="newPersonDirector">
+                    <option value="" selected>As director</option>
+                    <option value="false">false</option>
+                    <option value="true">true</option>
+                </select>
+            </div>
+            <div class="p-3">|</div>
+            <div class="form-group">
+                <select class="form-control" formControlName="newPersonComposer">
+                    <option value="" selected>As composer</option>
+                    <option value="false">false</option>
+                    <option value="true">true</option>
+                </select>
+            </div>
+            <div class="p-3">|</div>
+            <div class="form-group">
+                <select class="form-control" formControlName="newPersonActor">
+                    <option value="" selected>As actor</option>
+                    <option value="false">false</option>
+                    <option value="true">true</option>
+                </select>
+            </div>
+            <div class="p-3">|</div>
+            <div class="form-group">
+                <select class="form-control" formControlName="newPersonWriter">
+                    <option value="" selected>As writer</option>
+                    <option value="false" selected>false</option>
+                    <option value="true">true</option>
+                </select>
+            </div>
+            <div class="p-3">|</div>
+            <button class="btn btn-primary p-3" [disabled]="personEditForm.invalid || newPersonWriter?.value===''
+            || newPersonActor?.value==='' || (newPersonActor?.value!=='' && newPersonActorRole?.value==='')  || newPersonComposer?.value==='' || newPersonDirector?.value===''
+            || !newPersonFirstLast.value" (click)="submit('addNewCast')"
+                type="submit">Submit cast</button>
+        </form>
+
+        <table id="pmtsTable" class="table table-hover w-75">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First & Last name</th>
+                    <th>As</th>
+                    <th>Actor role</th>
+                    <th>Director</th>
+                    <th>Composer</th>
+                    <th>Actor</th>
+                    <th>Writer</th>
+                    <th>Details</th>
+                    <th>Update/Reset fields</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let pmts of movietvshow.persons;index as i" [formGroup]="personEditForm">
+                <tr>
+
+                    <td>{{i+1}}</td>
+                    <td>{{pmts.person.firstName}} {{pmts.person.lastName}}</td>
+                    <td>
+                        <i class="fa fa-pencil" aria-hidden="true" (click)="editPerson('castNameEdit',pmts)"></i>
+                        <div *ngIf="!selectedPmtsId || (selectedPmtsId&&selectedPmtsId!=pmts.id)">
+                            {{pmts.castName}}
+                        </div>
+                        <div *ngIf="selectedPmtsId && selectedPmtsId==pmts.id">
+                            <div *ngIf="castNameEdit">
+                                <input formControlName="personCastName" [placeholder]="pmts.castName" type="text"
+                                    class="form-control">
+                            </div>
+                            <div *ngIf="!castNameEdit">
+                                {{pmts.castName}}
+                            </div>
+                        </div>
+
+                    </td>
+                    <td>
+                        <i class="fa fa-pencil" aria-hidden="true" (click)="editPerson('actorRoleEdit',pmts)"></i>
+                        <div *ngIf="!selectedPmtsId || (selectedPmtsId&&selectedPmtsId!=pmts.id)">
+                            {{pmts.actorRole}}
+                        </div>
+                        <div *ngIf="selectedPmtsId && selectedPmtsId==pmts.id">
+                            <div *ngIf="actorRoleEdit">
+                                <select class="form-control" formControlName="personActorRole">
+                                    <option selected>{{pmts.actorRole}}</option>
+                                    <option *ngIf="pmts.actorRole==='LEADING'">SUPPORTING</option>
+                                    <option *ngIf="pmts.actorRole==='SUPPORTING'">LEADING</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!actorRoleEdit">
+                                {{pmts.actorRole}}
+                            </div>
+                        </div>
+
+                    </td>
+                    <td>
+                        <i class="fa fa-pencil" aria-hidden="true" (click)="editPerson('directorEdit',pmts)"></i>
+                        <div *ngIf="!selectedPmtsId || (selectedPmtsId&&selectedPmtsId!=pmts.id)">
+                            {{pmts.director}}
+                        </div>
+                        <div *ngIf="selectedPmtsId && selectedPmtsId==pmts.id">
+                            <div *ngIf="directorEdit">
+                                <select class="form-control" formControlName="personDirector">
+                                    <option [value]="pmts.director" selected>{{pmts.director}}</option>
+                                    <option [value]="!pmts.director">{{!pmts.director}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!directorEdit">
+                                {{pmts.director}}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <i class="fa fa-pencil" aria-hidden="true" (click)="editPerson('composerEdit',pmts)"></i>
+                        <div *ngIf="!selectedPmtsId || (selectedPmtsId&&selectedPmtsId!=pmts.id)">
+                            {{pmts.composer}}
+                        </div>
+                        <div *ngIf="selectedPmtsId && selectedPmtsId==pmts.id">
+                            <div *ngIf="composerEdit">
+                                <select class="form-control" formControlName="personComposer">
+                                    <option [value]="pmts.composer" selected>{{pmts.composer}}</option>
+                                    <option [value]="!pmts.composer">{{!pmts.composer}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!composerEdit">
+                                {{pmts.composer}}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <i class="fa fa-pencil" aria-hidden="true" (click)="editPerson('actorEdit',pmts)"></i>
+
+                        <div *ngIf="!selectedPmtsId || (selectedPmtsId&&selectedPmtsId!=pmts.id)">
+                            {{pmts.actor}}
+                        </div>
+                        <div *ngIf="selectedPmtsId && selectedPmtsId==pmts.id">
+                            <div *ngIf="actorEdit">
+                                <select class="form-control" formControlName="personActor">
+                                    <option [value]="pmts.actor" selected>{{pmts.actor}}</option>
+                                    <option [value]="!pmts.actor" selected>{{!pmts.actor}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!actorEdit">
+                                {{pmts.actor}}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <i class="fa fa-pencil" aria-hidden="true" (click)="editPerson('writerEdit',pmts)"></i>
+
+                        <div *ngIf="!selectedPmtsId || (selectedPmtsId&&selectedPmtsId!=pmts.id)">
+                            {{pmts.writer}}
+                        </div>
+                        <div *ngIf="selectedPmtsId && selectedPmtsId==pmts.id">
+                            <div *ngIf="writerEdit">
+                                <select class="form-control" formControlName="personWriter">
+                                    <option [value]="pmts.writer" selected>{{pmts.writer}}</option>
+                                    <option [value]="!pmts.writer" selected>{{!pmts.writer}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="!writerEdit">
+                                {{pmts.writer}}
+                            </div>
+                        </div>
+                    </td>
+                    <td><a class="btn btn-sm text-white btn-primary" (click)="personDetails(pmts.person.id)">Details</a>
+                    </td>
+                    <td><a class="btn btn-sm text-white btn-success" (click)="personMTSupdate(pmts)">Edit</a>
+                        <a class="btn btn-sm text-white btn-danger ml-1" (click)="resetPersonFields(pmts)">Reset</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div *ngIf="this.addEditParam !== 'add' && this.movietvshow!==undefined && this.movietvshow.type=='TV_SHOW'"
+        class="w-50">
+        <h2 class="mt-5">List of seasons</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Release year</th>
+                    <th>Number of episodes</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let season of movietvshow.seasons | seasonsFilter">
+                <tr>
+                    <td>{{season.serialNumber}}</td>
+                    <td>{{season.releaseYear}}</td>
+                    <td>{{season.episodes.length}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

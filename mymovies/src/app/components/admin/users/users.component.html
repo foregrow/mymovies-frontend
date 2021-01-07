@@ -1,6 +1,4 @@
-<div class="container">
-  <!-- <h2 class="mt-5 mb-5">Svi korisnici<a class="btn btn-sm text-white btn-success ml-3" (click)="navigateToAdd('add')">Dodaj novog korisnika</a></h2> -->
-  <!-- w-25,75,50.. klasa za width tabele  -->
+<!-- <div class="container">
   <h2 class="mt-5 mb-5">All users</h2>
     <table class="table table-hover w-75">
         <thead>
@@ -17,9 +15,43 @@
             <td>{{i+1}}</td>
             <td>{{obj.email}}</td>
             <td>{{obj.userRole}}</td>
-            <!-- <td><a class="btn btn-sm text-white btn-primary" (click)="details(obj)">details</a></td> -->
             <td><a class="btn btn-sm text-white btn-danger" (click)="delete(obj.id)">Delete</a></td>
         </tr>
         </tbody>
       </table>
+</div> -->
+
+<div class="container">
+  <h2 class="mt-5 mb-5">All users</h2>
+  <div class="mat-elevation-z8 mt-5">
+    <mat-form-field>
+      <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
+    </mat-form-field>
+    <table class="table table-hover w-100" mat-table [dataSource]="dataSource" matSort >
+      <ng-container matColumnDef="position">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> # </th>
+        <td mat-cell *matCellDef="let element"> {{dataSource.filteredData.indexOf(element)+1}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="email">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="userRole">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> User role </th>
+        <td mat-cell *matCellDef="let element"> {{element.userRole}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> Delete </th>
+        <td mat-cell *matCellDef="let element"><a class="btn btn-sm text-white btn-danger" (click)="delete(element.id)">Delete</a></td>
+      </ng-container>
+      
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5,10,15,50]" showFirstLastButtons></mat-paginator>
+  </div>
+  
 </div>

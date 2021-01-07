@@ -42,13 +42,17 @@ export class PersondetailComponent implements OnInit {
       
     }
 
+    mtsDetails(mtsid){
+      this._router.navigate([`admin/movietvshow-detail/${mtsid}`]);
+    }
+
     fetchEntityAndFillForm(id:any){
       this._ps.getById(id).subscribe(
         data=>{
           this.person = data;
           this.patchValues();
         },error=>{
-          this.errorPage();
+          console.log(error);
         }
       )
     }
@@ -115,7 +119,7 @@ export class PersondetailComponent implements OnInit {
     }
 
 
-    errorPage(){
-      this._router.navigate(['error']);
-    }
+    // errorPage(){
+    //   this._router.navigate(['error']);
+    // }
 }

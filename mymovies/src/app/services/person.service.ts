@@ -16,6 +16,12 @@ export class PersonService {
     return this._http.get<any>(PersonService.entityBaseURL);
   }
 
+  getAllNotInMTS(mtsid:any): Observable<any>{
+    return this._http.get<any>(`${PersonService.entityBaseURL}/notinmts/${+mtsid}`);
+  }
+
+  
+
   getById(id:any): Observable<any>{
     return this._http.get<any>(`${PersonService.entityBaseURL}/${+id}`);
   }

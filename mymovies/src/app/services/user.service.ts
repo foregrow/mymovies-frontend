@@ -81,6 +81,10 @@ export class UserService {
     return null;
   }
 
+  removeTokenFromStorage(){
+    localStorage.removeItem("jwt");
+  }
+  
   logout(){
     localStorage.removeItem("jwt");
     this._router.navigate(['login'])
