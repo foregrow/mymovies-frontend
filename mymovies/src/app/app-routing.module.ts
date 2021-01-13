@@ -16,6 +16,8 @@ import { MtsComponent } from './components/admin/mts/mts.component';
 import { ErrorComponent } from './components/error/error.component';
 import { PersondetailComponent } from './components/admin/persons/persondetail/persondetail.component';
 import { MtsdetailComponent } from './components/admin/mts/mtsdetail/mtsdetail.component';
+import { SeasondetailComponent } from './components/admin/seasons/seasondetail/seasondetail.component';
+import { EpisodedetailComponent } from './components/admin/episodes/episodedetail/episodedetail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -32,7 +34,9 @@ const routes: Routes = [
     {path:"person-detail/:p", component:PersondetailComponent},
 
     {path:"seasons", component:SeasonsComponent},
+    {path:"season-detail/:p", component:SeasondetailComponent},
     {path:"episodes", component:EpisodesComponent},
+    {path:"episode-detail/:p", component:EpisodedetailComponent},
 
     {path:"moviestvshows", component:MtsComponent},
     {path:"movietvshow-detail/:p", component:MtsdetailComponent},
@@ -55,4 +59,5 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 export const routingComponents = [ErrorComponent,LoginComponent,AdminComponent,MainComponent,ChannelMoviesComponent,RegisterComponent,
-UsersComponent,GenresComponent,SeasonsComponent,EpisodesComponent,PersonsComponent,PersondetailComponent,MtsComponent,MtsdetailComponent]
+UsersComponent,GenresComponent,SeasonsComponent,EpisodesComponent,PersonsComponent,PersondetailComponent,MtsComponent,MtsdetailComponent,
+SeasondetailComponent,EpisodedetailComponent]

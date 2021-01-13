@@ -24,4 +24,6 @@ export class Statics{
     public static readonly trailers: string = "trailers";
     
     public static readonly movieCategory: Number = 201;
+
+    public static readonly youtubeEmbedBase: string = "https://www.youtube.com/embed/";
 }

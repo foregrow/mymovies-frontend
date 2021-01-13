@@ -17,12 +17,17 @@ import { GenreService } from './services/genre.service';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material/material.module';
 import { PersonmtsService } from './services/personmts.service';
+import { SeasonService } from './services/season.service';
+import { EpisodeService } from './services/episode.service';
+import { EpisodesFilterPipe } from './filters/episodesFilter.pipe';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    SeasonsFilterPipe
+    SeasonsFilterPipe,
+    EpisodesFilterPipe
     
   ],
   imports: [
@@ -34,7 +39,7 @@ import { PersonmtsService } from './services/personmts.service';
     FormsModule,
     MaterialModule
   ],
-  providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,
+  providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

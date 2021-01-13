@@ -1,0 +1,73 @@
+<div class="container-fluid">
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add'">Add
+        Season</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add'">Season
+        details</h4>
+    <form [formGroup]="addEditForm" class="w-50">
+        <div class="form-group w-25">
+            <label>Serial number</label>
+            <input formControlName="serialNumber" type="number" class="form-control">
+            <small [class.d-none]="serialNumber?.valid || serialNumber?.untouched" class="text-danger">Serial number of season is
+                required!</small>
+        </div>
+        <div class="form-group w-25">
+            <label>Release year</label>
+            <input formControlName="releaseYear" type="number" class="form-control">
+            <small [class.d-none]="releaseYear?.valid || releaseYear?.untouched" class="text-danger">Year is required
+                and has to be valid!</small>
+        </div>
+        <div *ngIf="addEditParam!=='add'" class="form-group w-25">
+            <label>TV Show</label>
+            <input formControlName="tvShow" type="text" class="form-control">
+        </div>
+        <div *ngIf="addEditParam==='add'" class="form-group">
+            <mat-form-field>
+                <input formControlName="newTvShow" placeholder="Choose tv show" type="text"
+                    class="form-control" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTvShow">
+                    <mat-option *ngFor="let obj of tvShows" [value]="obj">
+                        {{obj.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <br>
+            <small *ngIf="!tvShowValid && newTvShow?.touched" class="text-danger">TV Show is required and has to be valid!</small>
+        </div>
+        <button *ngIf="this.addEditParam === 'add'" class="btn btn-primary" (click)="submit('add')"
+            [disabled]="addEditForm?.invalid || !tvShowValid" type="submit">Add</button>
+        <button *ngIf="this.addEditParam !== 'add'" class="btn btn-success" (click)="submit('edit')"
+            [disabled]="addEditForm?.invalid" type="submit">Edit info</button>
+
+    </form>
+
+    <div *ngIf="this.addEditParam !== 'add' && this.season"
+        class="w-50">
+        <h2 class="mt-5">List of episodes</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>SN</th>
+                    <th>Name</th>
+                    <th>Length (minutes)</th>
+                    <th>Details</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <!-- <tbody *ngFor="let season of movietvshow.seasons | seasonsFilter;index as i"> -->
+            <tbody *ngFor="let episode of season.episodes | episodesFilter;index as i">
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{episode.serialNumber}}</td>
+                    <td>{{episode.name}}</td>
+                    <td>{{episode.movieTvShow.lengthMinutes}}</td>
+                    <td><a class="btn btn-sm text-white btn-primary" (click)="episodeDetails(episode.id)">Details</a>
+                    </td>
+                    <td><a class="btn btn-sm text-white btn-danger" (click)="deleteEpisode(episode)">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

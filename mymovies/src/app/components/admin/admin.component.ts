@@ -15,6 +15,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
   home(){
     this._router.navigate([AdminComponent]);
   }

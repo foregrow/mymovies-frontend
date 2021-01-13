@@ -11,6 +11,7 @@ import { PersonmtsService } from 'src/app/services/personmts.service';
 import { Person } from 'src/app/models/persons';
 import { PersonService } from 'src/app/services/person.service';
 import { error } from 'protractor';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-mtsdetail',
@@ -19,6 +20,7 @@ import { error } from 'protractor';
 })
 export class MtsdetailComponent implements OnInit {
 
+  trailerUrl;
   addEditParam: any;
   movietvshow: any;
   genres: any[] = [];
@@ -43,7 +45,8 @@ export class MtsdetailComponent implements OnInit {
     genre: [''],
     alreadyChosenGenres: [''],
     person: [''],
-    alreadyChosenPersons: ['']
+    alreadyChosenPersons: [''],
+    trailer: ['']
 
   });
 
@@ -56,7 +59,8 @@ export class MtsdetailComponent implements OnInit {
     private _gs: GenreService,
     private _ps: PersonService,
     private _route: ActivatedRoute,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private _sanitizer: DomSanitizer) {
 
   }
 
@@ -100,7 +104,6 @@ export class MtsdetailComponent implements OnInit {
     this._ps.getAllNotInMTS(this.addEditParam).subscribe(
       data => {
         this.persons = data;
-        console.log(this.persons);
       }
     );
   }
@@ -218,6 +221,9 @@ export class MtsdetailComponent implements OnInit {
   personDetails(pid) {
     this._router.navigate([`admin/person-detail/${pid}`]);
   }
+  seasonDetails(id) {
+    this._router.navigate([`admin/season-detail/${id}`]);
+  }
   fetchEntityAndFillForm(id: any) {
     this._mtss.getById(id).subscribe(
       data => {
@@ -245,6 +251,10 @@ export class MtsdetailComponent implements OnInit {
       alreadyChosenGenres: this.displayMTSGenres(this.movietvshow?.genres),
       alreadyChosenPersons: this.displayMTSPersons(this.movietvshow?.persons)
     });
+    // if(this.movietvshow.trailers.length>0)
+    //   this.trailerUrl = this._sanitizer.bypassSecurityTrustResourceUrl(this.movietvshow.trailers[0].path);
+    
+    
 
     for (let pmts of this.movietvshow?.persons) {
       this.fillPersonEditFormValues(pmts);
@@ -332,16 +342,15 @@ export class MtsdetailComponent implements OnInit {
           this.fetchEntityAndFillForm(this.addEditParam);
           this.fetchAllGenres();
           //this.resetPersonFields(pmtsRes);
-          this.newPersonCastName.reset();
-          this.newPersonActorRole.reset();
-          this.newPersonDirector.reset();
-          this.newPersonComposer.reset();
-          this.newPersonActor.reset();
-          this.newPersonWriter.reset();
-          this.newPersonFirstLast.reset();
-          
+          this.newPersonCastName.setValue('');
+          this.newPersonActorRole.setValue('');
+          this.newPersonDirector.setValue('');
+          this.newPersonComposer.setValue('');
+          this.newPersonActor.setValue('');
+          this.newPersonWriter.setValue('');
+          this.newPersonFirstLast.setValue('');
           alert('Successfully added relation!');
-        }, (error) => alert('Unable to create data!'));
+        }, () => alert('Unable to create data!'));
       }
 
     } else {
@@ -389,6 +398,18 @@ export class MtsdetailComponent implements OnInit {
 
   }
 
+  deletePmts(id:number){
+    this._pmtss.delete(id)
+      .subscribe(
+        () => {
+          this.fetchEntityAndFillForm(this.addEditParam);
+          this.fetchAllGenres();
+        },
+        ()=>{ alert('Error while deleting!');}
+      ); 
+    
+  }
+
 
   get name() {
     return this.addEditForm.get('name');
@@ -428,6 +449,9 @@ export class MtsdetailComponent implements OnInit {
   }
   get type() {
     return this.addEditForm.get('type') as FormArray;
+  }
+  get trailer() {
+    return this.addEditForm.get('trailer');
   }
 
 

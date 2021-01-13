@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add'">Add
+        Episode</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add'">Episode
+        details</h4>
+    <form [formGroup]="addEditForm" class="w-50">
+        <div *ngIf="addEditParam==='add'" class="form-group">
+            <mat-form-field>
+                <input formControlName="newTvShow" placeholder="Choose tv show" type="text"
+                    class="form-control" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayTvShow">
+                    <mat-option *ngFor="let obj of tvShows" [value]="obj">
+                        {{obj.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <br>
+            <small *ngIf="!tvShowValid && newTvShow?.touched" class="text-danger">TV Show is required and has to be valid!</small>
+        </div>
+        <div *ngIf="addEditParam==='add' && tvShowValid" class="form-group">
+            <mat-form-field>
+                <input formControlName="newSeason" placeholder="Choose season" type="text"
+                    class="form-control" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displaySeason">
+                    <mat-option *ngFor="let obj of seasons" [value]="obj">
+                        {{obj.serialNumber}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <br>
+            <small *ngIf="!seasonValid && newSeason?.touched" class="text-danger">Season is required and has to be valid!</small>
+        </div>
+        <div class="form-group w-25">
+            <label>Serial number</label>
+            <input formControlName="serialNumber" type="number" class="form-control">
+            <small *ngIf="!serialNumber?.valid && serialNumber?.touched && seasonValid && newTvShow" class="text-danger">Serial number of season is
+                required!</small>
+            <small *ngIf="!episodeSNValid && seasonValid && newTvShow" class="text-danger">Episode with entered serial number already exists for this season!</small>
+        </div>
+        <div class="form-group w-25">
+            <label>Name</label>
+            <input formControlName="name" type="text" class="form-control">
+            <small [class.d-none]="name?.valid || name?.untouched" class="text-danger">Name is required! </small>
+        </div>
+        <div *ngIf="addEditParam!=='add'" class="form-group w-25">
+            <label>Season SN</label>
+            <input formControlName="season" type="input" class="form-control">
+        </div>
+        <div *ngIf="addEditParam!=='add'" class="form-group w-25">
+            <label>TV Show</label>
+            <input formControlName="tvShow" type="text" class="form-control">
+        </div>
+    
+        <button *ngIf="this.addEditParam === 'add'" class="btn btn-primary" (click)="submit('add')"
+            [disabled]="addEditForm?.invalid || !tvShowValid || !seasonValid || !episodeSNValid" type="submit">Add</button>
+        <button *ngIf="this.addEditParam !== 'add'" class="btn btn-success" (click)="submit('edit')"
+            [disabled]="addEditForm?.invalid" type="submit">Edit info</button>
+
+    </form>
+</div>

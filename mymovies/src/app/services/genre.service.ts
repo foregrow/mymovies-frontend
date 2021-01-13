@@ -24,6 +24,10 @@ export class GenreService {
     return this._http.post<any>(GenreService.entityBaseURL,data);
   }
 
+  test(){
+    return this._http.get<any>('https://www.googleapis.com/youtube/v3/search');
+  }
+
   update(data:any){
     return this._http.put<any>(GenreService.entityBaseURL,data);
   }

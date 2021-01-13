@@ -1,13 +1,24 @@
 <div class="container-fluid">
-    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Add
-        Movie</h4>
-    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">Add
-        TV Show</h4>
+    <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add'">Add
+        Movie/TV Show</h4>
     <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Movie
         details</h4>
     <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">TV
         Show details</h4>
+        <div class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow">
+            <div *ngFor="let video of movietvshow.trailers">
+                <iframe width="500" class="mr-1" height="320" [src]="_sanitizer.bypassSecurityTrustResourceUrl(video.path)" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+            </div>
+            
+        </div>
     <form [formGroup]="addEditForm" class="w-50">
+    
+        <div *ngIf="addEditParam === 'add'" class="form-group w-50">
+            <label>Trailer</label>
+            <input formControlName="trailer" placeholder="Enter youtube trailer id" type="text" class="form-control">
+        </div>
         <div class="form-group w-50">
             <label>Name</label>
             <input formControlName="name" type="text" class="form-control">
@@ -33,14 +44,14 @@
         </div>
         <div class="form-group  w-25">
             <label>Length (minutes)</label>
-            <input formControlName="lengthMinutes" type="text" class="form-control">
+            <input formControlName="lengthMinutes" type="number" class="form-control">
             <small [class.d-none]="lengthMinutes?.valid || lengthMinutes?.untouched" class="text-danger">Length is
                 required and has to be valid number!</small>
         </div>
 
         <div class="form-group  w-25">
             <label>Release year</label>
-            <input formControlName="releaseYear" type="text" class="form-control">
+            <input formControlName="releaseYear" type="number" class="form-control">
             <small [class.d-none]="releaseYear?.valid || releaseYear?.untouched" class="text-danger">Year is required
                 and has to be valid!</small>
         </div>
@@ -83,7 +94,7 @@
             <label>Chosen genres</label>
             <input formControlName="alreadyChosenGenres" type="text" class="form-control">
         </div>
-        <div *ngIf="this.addEditParam !== 'add'" class="form-group w-50">
+        <!-- <div *ngIf="this.addEditParam !== 'add'" class="form-group w-50">
             <label class="control-label mr-3">Add person as cast</label>
             <mat-form-field>
                 <input formControlName="person" type="text" class="form-control" matInput [matAutocomplete]="auto">
@@ -100,16 +111,16 @@
             <label>Chosen persons</label>
             <textarea rows="7" style="resize: none;" formControlName="alreadyChosenPersons" type="text"
                 class="form-control"></textarea>
-        </div>
+        </div> -->
         <button *ngIf="this.addEditParam === 'add'" class="btn btn-primary" (click)="submit('add')"
             [disabled]="addEditForm?.invalid || !typeChosen || chosenGenres.length===0" type="submit">Add</button>
-        <button *ngIf="this.addEditParam !== 'add'" class="btn btn-primary" (click)="submit('edit')"
-            [disabled]="addEditForm?.invalid" type="submit">Edit</button>
+        <button *ngIf="this.addEditParam !== 'add'" class="btn btn-success" (click)="submit('edit')"
+            [disabled]="addEditForm?.invalid" type="submit">Edit info</button>
 
     </form>
 
     <div *ngIf="this.addEditParam !== 'add' && movietvshow!==undefined" class="w-100">
-        <h2 class="mt-5">Full cast <a class="btn btn-sm text-white btn-success ml-3" (click)="addCast()">Add cast</a>
+        <h2 class="mt-5">Full cast <a class="btn btn-sm text-white btn-primary ml-3" (click)="addCast()">Add cast</a>
         </h2>
         <form [formGroup]="personEditForm" class="form-inline" *ngIf="addCastChosen">
             <div class="form-group">
@@ -171,8 +182,7 @@
             <div class="p-3">|</div>
             <button class="btn btn-primary p-3" [disabled]="personEditForm.invalid || newPersonWriter?.value===''
             || newPersonActor?.value==='' || (newPersonActor?.value!=='' && newPersonActorRole?.value==='')  || newPersonComposer?.value==='' || newPersonDirector?.value===''
-            || !newPersonFirstLast.value" (click)="submit('addNewCast')"
-                type="submit">Submit cast</button>
+            || !newPersonFirstLast.value" (click)="submit('addNewCast')" type="submit">Submit cast</button>
         </form>
 
         <table id="pmtsTable" class="table table-hover w-75">
@@ -186,8 +196,9 @@
                     <th>Composer</th>
                     <th>Actor</th>
                     <th>Writer</th>
-                    <th>Details</th>
                     <th>Update/Reset fields</th>
+                    <th>Details</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody *ngFor="let pmts of movietvshow.persons;index as i" [formGroup]="personEditForm">
@@ -300,12 +311,14 @@
                             </div>
                         </div>
                     </td>
-                    <td><a class="btn btn-sm text-white btn-primary" (click)="personDetails(pmts.person.id)">Details</a>
-                    </td>
-                    <td><a class="btn btn-sm text-white btn-success" (click)="personMTSupdate(pmts)">Edit</a>
+                    <td><a class="btn btn-sm text-white btn-success" (click)="personMTSupdate(pmts)">Update</a>
                         <a class="btn btn-sm text-white btn-danger ml-1" (click)="resetPersonFields(pmts)">Reset</a>
                     </td>
+                    <td><a class="btn btn-sm text-white btn-primary" (click)="personDetails(pmts.person.id)">Details</a>
+                    </td>
 
+                    <td><a class="btn btn-sm text-white btn-danger" (click)="deletePmts(pmts.id)">Delete</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -319,15 +332,20 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>SN</th>
                     <th>Release year</th>
                     <th>Number of episodes</th>
+                    <th>Details</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let season of movietvshow.seasons | seasonsFilter">
+            <tbody *ngFor="let season of movietvshow.seasons | seasonsFilter;index as i">
                 <tr>
+                    <td>{{i+1}}</td>
                     <td>{{season.serialNumber}}</td>
                     <td>{{season.releaseYear}}</td>
                     <td>{{season.episodes.length}}</td>
+                    <td><a class="btn btn-sm text-white btn-primary" (click)="seasonDetails(season.id)">Details</a>
+                    </td>
                 </tr>
             </tbody>
         </table>

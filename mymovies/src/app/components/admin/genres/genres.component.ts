@@ -25,7 +25,13 @@ export class GenresComponent implements OnInit {
   ngOnInit(): void {
     this.fetchData();
   }
-  
+  test(){
+    this._gs.test().subscribe(
+      data=>{
+        console.log(data);
+      },error=>{console.log(error);}
+    );
+  }
   fetchData() {
     this._gs.getAll()
         .subscribe(data => 

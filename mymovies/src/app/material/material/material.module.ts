@@ -12,7 +12,7 @@ const MaterialComponents = [
   MatInputModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
 ];
 
 @NgModule({
