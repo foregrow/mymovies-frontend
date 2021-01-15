@@ -4,19 +4,39 @@ export class DateUtils{
     private static readonly MAX_MINUTES = 60;
     private static readonly PLUS_MONTH = 1;
     private static readonly HOUR_IN_MILLIS = 3600000;
-    public static getFromAndToDates(){
+    private static readonly ADDED_HOURS_DIFF = 3;
+    public static getFromAndToDates() {
         let today = new Date();
-        let month = `${today.getMonth()+DateUtils.PLUS_MONTH}`;
-        let day = `${today.getDate()}`;
-        if(+month<10&&+month>0){
-            month = `0${month}`;
-        }
-        if(+day<10&&+day>0){
-            day = `0${day}`;
-        }
-        let from = `${today.getFullYear()}-${month}-${day}T00:00:00Z`;
-        let to = `${today.getFullYear()}-${month}-${day}T23:59:59Z`;
-        return {'from':from,'to':to};
+        let year = today.getFullYear();
+        let monthNumber = today.getMonth() + DateUtils.PLUS_MONTH;
+        let dayNumber = today.getDate();
+        let hoursNumber = today.getHours();
+        let minutesNumber = today.getMinutes();
+        let secNumber = today.getSeconds();
+
+        let month = monthNumber < 10 && monthNumber > 0  ? `0${monthNumber}` : `${monthNumber}`;
+        let day = dayNumber<10&&dayNumber>0 ? `0${dayNumber}` : `${dayNumber}`;
+        let hours = hoursNumber<10&&hoursNumber>=0 ? `0${hoursNumber}` : `${hoursNumber}`;
+        let minutes = minutesNumber<10&&minutesNumber>=0 ? `0${minutesNumber}` : `${minutesNumber}`;
+        let sec = secNumber<10&&secNumber>=0 ? `0${secNumber}` : `${secNumber}`;
+        
+        let from = `${year}-${month}-${day}T${hours}:${minutes}:${sec}Z`;
+        //today's date + added hours (from-to date range)
+        let todayPlusDiffHours = new Date(today.setHours(today.getHours() + DateUtils.ADDED_HOURS_DIFF)); 
+        year = todayPlusDiffHours.getFullYear();
+        monthNumber = todayPlusDiffHours.getMonth() + DateUtils.PLUS_MONTH;
+        dayNumber = todayPlusDiffHours.getDate();
+        hoursNumber = todayPlusDiffHours.getHours();
+        minutesNumber = todayPlusDiffHours.getMinutes();
+        secNumber = todayPlusDiffHours.getSeconds();
+        month = monthNumber < 10 && monthNumber > 0  ? `0${monthNumber}` : `${monthNumber}`;
+        day = dayNumber<10&&dayNumber>0 ? `0${dayNumber}` : `${dayNumber}`;
+        hours = hoursNumber<10&&hoursNumber>=0 ? `0${hoursNumber}` : `${hoursNumber}`;
+        minutes = minutesNumber<10&&minutesNumber>=0 ? `0${minutesNumber}` : `${minutesNumber}`;
+        sec = secNumber<10&&secNumber>=0 ? `0${secNumber}` : `${secNumber}`;
+
+        let to = `${year}-${month}-${day}T${hours}:${minutes}:${sec}Z`;
+        return { 'from': from, 'to': to };
     }
 
     public static isMovieInFuture(movieStartDT:any): Boolean{
