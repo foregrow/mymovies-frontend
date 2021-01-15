@@ -1,20 +1,27 @@
+<div class="container-fluid mt-5" *ngIf="movietvshow && addEditParam !== 'add'">
+    <div class="card-group">
+
+        <div class="row pr-5" *ngFor="let video of movietvshow.trailers">
+            <div class="card col-md-4">
+                <iframe width="450" height="280" [src]="_sanitizer.bypassSecurityTrustResourceUrl(video.path)"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid">
+  
     <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add'">Add
         Movie/TV Show</h4>
     <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='MOVIE'">Movie
         details</h4>
     <h4 class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow!==undefined && movietvshow.type=='TV_SHOW'">TV
         Show details</h4>
-        <div class="mt-5 mb-3" *ngIf="addEditParam !== 'add' && movietvshow">
-            <div *ngFor="let video of movietvshow.trailers">
-                <iframe width="500" class="mr-1" height="320" [src]="_sanitizer.bypassSecurityTrustResourceUrl(video.path)" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-            </div>
-            
-        </div>
     <form [formGroup]="addEditForm" class="w-50">
-    
+
         <div *ngIf="addEditParam === 'add'" class="form-group w-50">
             <label>Trailer</label>
             <input formControlName="trailer" placeholder="Enter youtube trailer id" type="text" class="form-control">
