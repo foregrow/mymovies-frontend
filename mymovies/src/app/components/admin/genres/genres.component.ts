@@ -25,13 +25,16 @@ export class GenresComponent implements OnInit {
   ngOnInit(): void {
     this.fetchData();
   }
-  test(){
-    this._gs.test().subscribe(
-      data=>{
-        console.log(data);
-      },error=>{console.log(error);}
-    );
-  }
+  // test(){
+  //   this._gs.test('H_096MasS38').subscribe(
+  //     data=>{
+  //       if(data.items.length<1)
+  //         alert('No video with that id!');
+  //       else
+  //         console.log(data.items);
+  //     },error=>{console.log(error);}
+  //   );
+  // }
   fetchData() {
     this._gs.getAll()
         .subscribe(data => 

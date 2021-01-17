@@ -35,6 +35,12 @@ export class ExternalApiService {
       }});
       return req;
   }
+
+  getYTVideoById(videoId){
+    return this._http.get<any>(Statics.youtubeVideosApiURL,{params:{
+      'id':videoId,
+    }});
+  }
   
 
   setExternalAccessTokenInLocalStorage(accessToken:any){

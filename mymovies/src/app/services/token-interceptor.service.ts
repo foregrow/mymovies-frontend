@@ -39,13 +39,24 @@ export class TokenInterceptorService implements HttpInterceptor {
       }
        
     }else{
-      //AIzaSyDPn3TxVEHi51jAqEAQLignX25Uf_NaZag
+      //https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDPn3TxVEHi51jAqEAQLignX25Uf_NaZag&id=YoHD9XEInc0
       let userService = this.inj.get(UserService);
-      tokenizedReq = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${userService.getToken()}`
-        }
-      });
+      if(req.url===Statics.youtubeVideosApiURL){
+        tokenizedReq = req.clone({
+          setParams: {
+            key: 'AIzaSyDPn3TxVEHi51jAqEAQLignX25Uf_NaZag',
+            
+          }
+        });
+      }else{
+        tokenizedReq = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${userService.getToken()}`
+          }
+        });
+      }
+      
+      
     }
     return next.handle(tokenizedReq).pipe(
       catchError((errorResponse: HttpErrorResponse) => {

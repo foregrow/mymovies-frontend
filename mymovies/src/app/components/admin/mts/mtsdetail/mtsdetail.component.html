@@ -23,8 +23,15 @@
     <form [formGroup]="addEditForm" class="w-50">
 
         <div *ngIf="addEditParam === 'add'" class="form-group w-50">
-            <label>Trailer</label>
-            <input formControlName="trailer" placeholder="Enter youtube trailer id" type="text" class="form-control">
+            <label>Trailer
+                <i class="fa fa-plus" (click)="getYTVideoByID()" aria-hidden="true"></i>
+                <i class="fa fa-eraser ml-1" (click)="clearVideosList()" aria-hidden="true"></i>
+            </label>
+            <input formControlName="trailer" placeholder="Enter youtube trailer id" type="text" class="form-control w-50">
+        </div>
+        <div *ngIf="addEditParam === 'add'" class="form-group w-50">
+            <label>Added videos</label>
+            <input formControlName="alreadyAddedTrailers" type="input" class="form-control">
         </div>
         <div class="form-group w-50">
             <label>Name</label>
@@ -97,7 +104,7 @@
             <button class="btn btn-danger" (click)="clearGenres()" type="button"
                 [disabled]="chosenGenres.length===0">Clear</button>
         </div>
-        <div class="form-group w-50">
+        <div *ngIf="this.addEditParam === 'add'" class="form-group w-50">
             <label>Chosen genres</label>
             <input formControlName="alreadyChosenGenres" type="text" class="form-control">
         </div>

@@ -25,5 +25,6 @@ export class Statics{
     
     public static readonly movieCategory: Number = 201;
 
-    public static readonly youtubeEmbedBase: string = "https://www.youtube.com/embed/";
+    public static readonly youtubeEmbedBase: string = "https://www.youtube.com/embed";
+    public static readonly youtubeVideosApiURL = "https://www.googleapis.com/youtube/v3/videos";
 }

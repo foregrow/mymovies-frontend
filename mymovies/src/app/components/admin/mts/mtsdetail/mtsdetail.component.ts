@@ -12,6 +12,9 @@ import { Person } from 'src/app/models/persons';
 import { PersonService } from 'src/app/services/person.service';
 import { error } from 'protractor';
 import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import { ExternalApiService } from 'src/app/services/external-api.service';
+import { Trailer } from 'src/app/models/trailers';
+import { Statics } from 'src/app/utils/statics';
 
 @Component({
   selector: 'app-mtsdetail',
@@ -46,7 +49,8 @@ export class MtsdetailComponent implements OnInit {
     alreadyChosenGenres: [''],
     person: [''],
     alreadyChosenPersons: [''],
-    trailer: ['']
+    trailer: [''],
+    alreadyAddedTrailers: ['']
 
   });
 
@@ -60,7 +64,8 @@ export class MtsdetailComponent implements OnInit {
     private _ps: PersonService,
     private _route: ActivatedRoute,
     private datePipe: DatePipe,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer,
+    private _externalAPIService: ExternalApiService) {
 
   }
 
@@ -69,6 +74,7 @@ export class MtsdetailComponent implements OnInit {
   ngOnInit(): void {
     this.addEditParam = this._route.snapshot.paramMap.get('p');
     this.addEditForm.controls['alreadyChosenGenres'].disable();
+    this.addEditForm.controls['alreadyAddedTrailers'].disable();
     if (this.addEditParam !== 'add') {
       this.addEditForm.controls['type'].disable();
       this.addEditForm.controls['alreadyChosenPersons'].disable();
@@ -260,7 +266,33 @@ export class MtsdetailComponent implements OnInit {
       this.fillPersonEditFormValues(pmts);
     }
   }
-
+  validYTVideo = false;
+  videos: string[]=[];
+  getYTVideoByID(){
+    let videoId = this.trailer?.value;
+    this._externalAPIService.getYTVideoById(videoId).subscribe(
+      data=>{
+        let items = data.items;
+        if(items.length<1){
+          this.trailer.setValue('');
+          alert('Unable to reach youtube video with that id!');
+        }else{
+          // this.validYTVideo = true;
+          if(!this.videos.includes(items[0].id)){
+            this.trailer.setValue('');
+            this.alreadyAddedTrailers.setValue(`${this.alreadyAddedTrailers.value} ${items[0].id}`);
+            this.videos.push(items[0].id);
+          }else{
+            this.trailer.setValue('');}
+          console.log(this.videos);
+        }
+      },error=>{console.log(error);}
+    );
+  }
+  clearVideosList(){
+    this.videos = [];
+    this.alreadyAddedTrailers.setValue('');
+  }
   displayMTSGenres(mtsgenres: any): string {
     let result = "";
     for (var gr of mtsgenres) {
@@ -367,8 +399,16 @@ export class MtsdetailComponent implements OnInit {
       if (name !== null && description !== null && storyline !== null && lengthMinutes !== null &&
         releaseDate !== null && releaseYear !== null && country !== null && language !== null && type !== null) {
         if (param === 'add') {
+          let trailers: Trailer[] = [];
+          if(this.videos.length>0){
+            this.videos.forEach(videoId=>{
+              let path = `${Statics.youtubeEmbedBase}/${videoId}`
+              let trailer = new Trailer(null,null,path,null);
+              trailers.push(trailer);
+            })
+          }
           let mts = new MovieTvShow(0, name, description, storyline, lengthMinutes, releaseDate, releaseYear, type,
-            country, language, undefined, undefined, undefined, undefined, undefined, this.chosenGenres, undefined);
+            country, language, trailers, undefined, undefined, undefined, undefined, this.chosenGenres, undefined);
           this._mtss.add(mts).subscribe(
             data => {
               alert("Successfully created!");
@@ -453,7 +493,10 @@ export class MtsdetailComponent implements OnInit {
   get trailer() {
     return this.addEditForm.get('trailer');
   }
-
+  get alreadyAddedTrailers() {
+    return this.addEditForm.get('alreadyAddedTrailers');
+  }
+  
 
   get personCastName() {
     return this.personEditForm.get('personCastName');
