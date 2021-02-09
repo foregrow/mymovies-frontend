@@ -12,6 +12,11 @@ export class MovietvshowService {
   private static readonly entityBaseURL: string = `${Statics.serverBaseURL}/${Statics.api}/${Statics.mts}`;
   constructor(private _http: HttpClient,private _router: Router) { }
 
+
+  getAll() : Observable<any>{
+    return this._http.get<any>(MovietvshowService.entityBaseURL);
+  }
+
   getAllMovies() : Observable<any>{
     return this._http.get<any>(`${MovietvshowService.entityBaseURL}/movies`);
   }
@@ -22,6 +27,11 @@ export class MovietvshowService {
 
   getById(id:any): Observable<any>{
     return this._http.get<any>(`${MovietvshowService.entityBaseURL}/${+id}`);
+  }
+
+
+  findAllByNameContains(name): Observable<any>{
+    return this._http.get<any>(`${MovietvshowService.entityBaseURL}/namecontains/${name}`);
   }
 
   add(data:any){

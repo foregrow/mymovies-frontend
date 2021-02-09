@@ -1,2 +1,48 @@
-<p>main works!</p>
-<button class="btn btn-primary" (click)="channelsMovies()" type="submit" >See our channels movies</button>
+<button class="btn btn-primary" (click)="channelsMovies()" type="submit">See our channels movies</button>
+<div class="form-group row mt-5">
+    <label for="search" class="col-sm-3 col-form-label" style="text-align: right;"></label>
+    <select class="form-control" style="width:auto;" [formControl]="chosenEntity">
+        <option value="mts" selected>Movies&TV Shows</option>
+        <option value="persons">Persons</option>
+    </select>
+    <div class="col-sm-4">
+        <input type="text" [(ngModel)]="searchValue" placeholder="Search here.." class="form-control" id="search">
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-primary" (click)="searchDetails()" type="button">Search</button>
+    </div>
+</div>
+
+<div class="container" *ngIf="isSearched">
+    <h3 class="mb-5 mt-1">Results for "{{resultValue}}"</h3>
+    <div *ngIf="!searchResultsData || searchResultsData.length==0">
+        <h3>No results found.</h3>
+    </div>
+    <div *ngIf="searchResultsData && searchResultsData.length>0">
+        <div class="well mb-3" *ngFor="let obj of searchResultsData">
+            <!-- if movietvshows -->
+            <div class="media" (click)="mtsOrPersonDetails('mts',obj.id)" *ngIf="chosenEntityValue&&chosenEntityValue==='mts'">
+                <a class="pull-left mr-1" href="#">
+                    <img class="media-object h-100" src="http://placekitten.com/150/150">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{obj.name}} | {{obj.type}} | ({{obj.releaseYear}}) |
+                        {{obj.lengthMinutes}} min | {{obj.language}}</h4>
+                    <p>{{obj.description}}</p>
+                </div>
+            </div>
+            <div class="media" (click)="mtsOrPersonDetails('person',obj.id)" *ngIf="chosenEntityValue&&chosenEntityValue==='persons'">
+                <a class="pull-left mr-1" href="#">
+                    <img class="media-object h-100" src="http://placekitten.com/150/150">
+                </a>
+                <!-- if persons -->
+                <div class="media-body">
+                    <h4 class="media-heading">{{obj.firstName}} {{obj.lastName}} | ({{obj.bornDate |
+                        date:'yyyy'}}-{{obj.diedDate| date:'yyyy'}})</h4>
+                    <p><b>Bio: </b>{{obj.bio}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,10 @@
+<div class="container">
+    <owl-carousel-o [options]="customOptions">
+            <ng-template *ngFor="let psrc of photoSrcs;index as i"  carouselSlide>
+                <div class="item">
+                    <img class="img" [src]="psrc">
+                </div>
+            </ng-template>
+    </owl-carousel-o>
+
+</div>

@@ -18,6 +18,8 @@ import { PersondetailComponent } from './components/admin/persons/persondetail/p
 import { MtsdetailComponent } from './components/admin/mts/mtsdetail/mtsdetail.component';
 import { SeasondetailComponent } from './components/admin/seasons/seasondetail/seasondetail.component';
 import { EpisodedetailComponent } from './components/admin/episodes/episodedetail/episodedetail.component';
+import { SearchDetailsComponent } from './components/main/search-details/search-details.component';
+import { DetailsComponent } from './components/main/details/details.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -45,8 +47,18 @@ const routes: Routes = [
   {path:"main", component:MainComponent, canActivate:[AuthGuard,RoleGuard],
   data: {
       roles: ['USER']
-    }},
-  {path:"channels-movies",component:ChannelMoviesComponent, canActivate:[AuthGuard]},
+    },
+  },
+  {path:"details/:p/:id", component:DetailsComponent, canActivate:[AuthGuard,RoleGuard],
+  data: {
+      roles: ['USER']
+    },
+  },
+  {path:"channels-movies", component:ChannelMoviesComponent, canActivate:[AuthGuard,RoleGuard],
+  data: {
+      roles: ['USER']
+    },
+  },
 
   {path: 'error', component:ErrorComponent},
   {path: '**', redirectTo: 'main', pathMatch: 'full'}
@@ -60,4 +72,4 @@ const routes: Routes = [
 export class AppRoutingModule { }
 export const routingComponents = [ErrorComponent,LoginComponent,AdminComponent,MainComponent,ChannelMoviesComponent,RegisterComponent,
 UsersComponent,GenresComponent,SeasonsComponent,EpisodesComponent,PersonsComponent,PersondetailComponent,MtsComponent,MtsdetailComponent,
-SeasondetailComponent,EpisodedetailComponent]
+SeasondetailComponent,EpisodedetailComponent,SearchDetailsComponent,DetailsComponent]

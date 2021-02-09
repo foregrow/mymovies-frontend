@@ -19,13 +19,14 @@ export class PersonService {
   getAllNotInMTS(mtsid:any): Observable<any>{
     return this._http.get<any>(`${PersonService.entityBaseURL}/notinmts/${+mtsid}`);
   }
-
-  
+  findAllByFNameOrLNameContains(searchValue): Observable<any>{
+    return this._http.get<any>(`${PersonService.entityBaseURL}/namecontains/${searchValue}`);
+  }
 
   getById(id:any): Observable<any>{
     return this._http.get<any>(`${PersonService.entityBaseURL}/${+id}`);
   }
-
+  
   add(data:any){
     return this._http.post<any>(PersonService.entityBaseURL,data);
   }

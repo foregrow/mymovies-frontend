@@ -20,7 +20,7 @@ import { PersonmtsService } from './services/personmts.service';
 import { SeasonService } from './services/season.service';
 import { EpisodeService } from './services/episode.service';
 import { EpisodesFilterPipe } from './filters/episodesFilter.pipe';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { EpisodesFilterPipe } from './filters/episodesFilter.pipe';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    CarouselModule
   ],
   providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,
   {
