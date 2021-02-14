@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MovietvshowService } from 'src/app/services/movietvshow.service';
 import { PersonService } from 'src/app/services/person.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -18,8 +18,8 @@ export class DetailsComponent implements OnInit {
   customOptions: any = {
     loop: true,
     margin: 10,
-    autoplay:true,
-    responsiveClass: true,
+    // autoplay:true,
+    // responsiveClass: true,
     autoHeight: true,
     navText: ["<i class='fa fa-caret-left'></i>",
     "<i class='fa fa-caret-right'></i>"],
@@ -33,6 +33,7 @@ export class DetailsComponent implements OnInit {
   addEditIdParam;
   typeParam;
   dataDetails;
+  urlCache = new Map<string, SafeResourceUrl>();
   constructor(private _route:ActivatedRoute,
     private _router:Router,
     private _ps:PersonService,
@@ -45,10 +46,22 @@ export class DetailsComponent implements OnInit {
     
   }
 
+  getIframeYouTubeUrl(videoId: string): SafeResourceUrl {
+    let url = this.urlCache.get(videoId);
+    if (!url) {
+      url = this._sanitizer.bypassSecurityTrustResourceUrl(
+        "https://www.youtube.com/embed/" + videoId + "?enablejsapi=1");;
+      this.urlCache.set(videoId, url);
+    }
+    return url;
+  }
+
   getData(){
     this._mtss.getById(this.addEditIdParam).subscribe(
       data=>{this.dataDetails=data,
-        console.log(this.dataDetails)
+        console.log(this.dataDetails);
+        
+        
       },
       error=>{console.error(error);}
     );
@@ -58,6 +71,23 @@ export class DetailsComponent implements OnInit {
     //     error=>{console.error(error);}
     //   );
     // }
+  }
+  seasonEpisodes;
+  seasonChosen = false;
+  clickedSeason(sserialNumber){
+    let seasonArray=this.dataDetails.seasons.filter(season => {
+      return season.serialNumber===sserialNumber;
+    });
+    if(seasonArray){
+      this.seasonChosen=true;
+      this.seasonEpisodes = seasonArray[0].episodes;
+      console.log(this.seasonEpisodes);
+    }
+    else{
+      this.seasonEpisodes;
+      this.seasonChosen=false;
+    }
+
   }
 
   personDetails(personid){

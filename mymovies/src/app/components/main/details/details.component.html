@@ -1,158 +1,3 @@
-<!-- <div class="container">
-    <owl-carousel-o [options]="customOptions">
-            <ng-template *ngFor="let psrc of photoSrcs" carouselSlide>
-                <div class="item">
-                    <img class="img" [src]="psrc">
-                </div>
-            </ng-template>
-    </owl-carousel-o>
-</div> -->
-
-<!-- <div class="container" *ngIf="dataDetails">
-        <div class="well mb-3">
-            <div class="media">
-                <a class="pull-left mr-1">
-                    <img class="media-object h-100" src="http://placekitten.com/150/150">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">{{dataDetails.name}} | {{dataDetails.type}} | ({{dataDetails.releaseYear}}) |
-                       {{ dataDetails.lengthMinutes}} min | {{dataDetails.language}}</h4>
-					   <ul class="" *ngFor="let g of dataDetails.genres">
-						<li>{{g.type}}</li>
-					</ul>
-                    <p>{{dataDetails.description}}</p>	
-                </div>
-            </div>
-        </div>
-
-        <div>
-        <h4 class="mt-5">Full Cast</h4>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Full Name</th>
-                    <th>As</th>
-                    <th>Role</th>
-                    <th>Info</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let personmts of dataDetails.persons | roleFilter:'actorRole';index as i">
-                <tr>
-                    <td>{{i+1}}</td>
-                    <td>{{personmts.person.firstName}} {{personmts.person.lastName}}</td>
-                    <td>{{personmts.castName}}</td>
-                    <td>{{personmts.actorRole}}</td>
-                    <td><a class="btn btn-sm text-white btn-primary" (click)="personDetails(personmts.person.id)">Details</a> 
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div> -->
-
-<!--  <div class="row">
-			<div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
-				<ul class="event-list">
-					<li>
-						<time datetime="2014-07-20">
-							<span class="day">4</span>
-							<span class="month">Jul</span>
-							<span class="year">2014</span>
-							<span class="time">ALL DAY</span>
-						</time>
-						<img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" />
-						<div class="info">
-							<h2 class="title">Independence Day</h2>
-							<p class="desc">United States Holiday</p>
-						</div>
-						<div class="social">
-							<ul>
-								<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
-								<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
-								<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
-							</ul>
-						</div>
-					</li>
-
-					<li>
-						<time datetime="2014-07-20 0000">
-							<span class="day">8</span>
-							<span class="month">Jul</span>
-							<span class="year">2014</span>
-							<span class="time">12:00 AM</span>
-						</time>
-						<div class="info">
-							<h2 class="title">One Piece Unlimited World Red</h2>
-							<p class="desc">PS Vita</p>
-							<ul>
-								<li style="width:50%;"><a href="#website"><span class="fa fa-globe"></span> Website</a></li>
-								<li style="width:50%;"><span class="fa fa-money"></span> $39.99</li>
-							</ul>
-						</div>
-						<div class="social">
-							<ul>
-								<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
-								<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
-								<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
-							</ul>
-						</div>
-					</li>
-
-					<li>
-						<time datetime="2014-07-20 2000">
-							<span class="day">20</span>
-							<span class="month">Jan</span>
-							<span class="year">2014</span>
-							<span class="time">8:00 PM</span>
-						</time>
-						<img alt="My 24th Birthday!" src="https://farm5.staticflickr.com/4150/5045502202_1d867c8a41_q.jpg" />
-						<div class="info">
-							<h2 class="title">Mouse0270's 24th Birthday!</h2>
-							<p class="desc">Bar Hopping in Erie, Pa.</p>
-							<ul>
-								<li style="width:33%;">1 <span class="glyphicon glyphicon-ok"></span></li>
-								<li style="width:34%;">3 <span class="fa fa-question"></span></li>
-								<li style="width:33%;">103 <span class="fa fa-envelope"></span></li>
-							</ul>
-						</div>
-						<div class="social">
-							<ul>
-								<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
-								<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
-								<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
-							</ul>
-						</div>
-					</li>
-
-					<li>
-						<time datetime="2014-07-31 1600">
-							<span class="day">31</span>
-							<span class="month">Jan</span>
-							<span class="year">2014</span>
-							<span class="time">4:00 PM</span>
-						</time>
-						<img alt="Disney Junior Live On Tour!" src="http://www.thechaifetzarena.com/images/main/DL13_PiratePrincess_thumb.jpg" />
-						<div class="info">
-							<h2 class="title">Disney Junior Live On Tour!</h2>
-							<p class="desc"> Pirate and Princess Adventure</p>
-							<ul>
-								<li style="width:33%;">$49.99 <span class="fa fa-male"></span></li>
-								<li style="width:34%;">$29.99 <span class="fa fa-child"></span></li>
-							</ul>
-						</div>
-						<div class="social">
-							<ul>
-								<li class="facebook" style="width:33%;"><a href="#facebook"><span class="fa fa-facebook"></span></a></li>
-								<li class="twitter" style="width:34%;"><a href="#twitter"><span class="fa fa-twitter"></span></a></li>
-								<li class="google-plus" style="width:33%;"><a href="#google-plus"><span class="fa fa-google-plus"></span></a></li>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div> -->
-
 <main *ngIf="dataDetails">
 	<div class="container-fluid p-0">
 		<div class="row no-gutters">
@@ -180,7 +25,28 @@
 				<div class="background">
 					<div class="background-content">
 						<h1 class="display-3">{{dataDetails.name}}</h1>
-						<p *ngIf="dataDetails.type==='TV_SHOW'">Season 1</p>
+						<div class="row no-gutters mt-1">
+							<li class="lig">Directed by: </li>
+							<div class="genres" *ngFor="let pmts of dataDetails.persons">
+								<li class="lig dirsli" *ngIf="pmts.director" (click)="personDetails(pmts.person.id)">
+									{{pmts.person.firstName}}
+									{{pmts.person.lastName}} </li>
+							</div>
+						</div>
+						<div class="row no-gutters mt-1">
+							<li class="lig">Writen by: </li>
+							<div class="genres" *ngFor="let pmts of dataDetails.persons">
+								<li class="lig dirsli" *ngIf="pmts.writer" (click)="personDetails(pmts.person.id)">
+									{{pmts.person.firstName}}
+									{{pmts.person.lastName}} </li>
+							</div>
+						</div>
+						<div *ngIf="dataDetails.type==='TV_SHOW'">
+							<div class="genres" *ngFor="let season of dataDetails.seasons | seasonsFilter">
+								<li class="lig dirsli" (click)="clickedSeason(season.serialNumber)">Season {{season.serialNumber}}  </li>
+							</div>
+						</div>
+						<br>
 						<div class="star">
 							<i class="fa fa-star text-warning"></i>
 							<i class="fa fa-star text-warning"></i>
@@ -194,40 +60,82 @@
 								<li class="lig">{{g.type}}</li>
 							</div>
 							<p class="ml-3">({{dataDetails.releaseYear}})</p>
-							<p class="ml-3">({{dataDetails.language}})</p>
 							<p class="ml-3">({{dataDetails.lengthMinutes}} min)</p>
+							<p class="ml-3">({{dataDetails.country}})</p>
+							<p class="ml-3">({{dataDetails.language}})</p>
 						</div>
-						<!-- <div class="row no-gutters mt-1">
-							<button class="btn"><i class="fa fa-play"></i></button>
-							<button class="btn ml-1"><i class="fa fa-plus"></i></button>
-						</div> -->
 
-							<div class="w-25 mt-3 owl">
+						<div class="row mediaparent">
+							<div class="col-3 mediachild">
 								<owl-carousel-o [options]="customOptions">
 									<ng-template *ngFor="let p of dataDetails.photos" carouselSlide>
 										<div class="slide">
-											<img class="mtsimgs" [src]="p.path" width="200">
+											<img class="img-fluid img-thumbnail mtsimgs" [src]="p.path" width="200">
 										</div>
-										
-									</ng-template>
-								</owl-carousel-o>	
-							</div>
-							<div class="w-50">
-								<p class="text-muted mt-5 ml-3 mb-5 desc">{{dataDetails.description}}</p>
-							</div>
-							<!-- <div *ngFor="let p of dataDetails.photos">
-								<img class="mtsimgs" [src]="p.path" width="200">
-							</div> -->
-					</div>
-					<div class="row no-gutters cast mt-5">
-						<div class="col-xl-1 ml-5"
-							*ngFor="let pmts of dataDetails.persons| roleFilter:'actorRole';index as i">
-							<img *ngIf="pmts.person.photos.length>0" [src]="pmts.person.photos[0].path"
-								class="img-fluid">
-							<p>{{pmts.person.firstName}} {{pmts.person.lastName}}</p>
-						</div>
 
+									</ng-template>
+								</owl-carousel-o>
+							</div>
+							<div class="col-4 mediachild">
+								<owl-carousel-o [options]="customOptions">
+									<ng-template *ngFor="let vid of dataDetails.trailers" carouselSlide>
+										<div class="slide">
+											<iframe width="450" height="280" allowTransparency="true"
+												background="transparent" [src]="getIframeYouTubeUrl(vid.path)"
+												frameborder="0"
+												allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+												allowfullscreen></iframe>
+										</div>
+
+									</ng-template>
+								</owl-carousel-o>
+							</div>
+							<div *ngIf="seasonChosen" class="col-4 mediachild ff">
+								<table class="table table-hover w-50" style="color: white;">
+									<thead>
+									  <tr>
+										<th>#</th>
+										<th> SN</th>
+										<th> Name</th>
+									  </tr>
+									
+									</thead>
+									<tbody *ngFor="let episode of seasonEpisodes | episodesFilter;index as i">
+							
+									  <tr *ngIf="seasonEpisodes.length>0;else">
+										<td>{{i+1}}</td>
+										<td>{{episode.serialNumber}}</td>
+										<td>{{episode.name}}</td>
+									</tr>
+									</tbody>
+								  </table>
+							</div>
+						</div>
+						<div class="w-50">
+							<p class="mt-5 ml-3 mb-5 desc">{{dataDetails.description}}</p>
+						</div>
 					</div>
+					<div class="container-fluid pl-5">
+						<div class="row">
+							<div class="col-md-2"
+								*ngFor="let pmts of dataDetails.persons| roleFilter:'actorRole';index as i">
+								<img class="persondata img-fluid img-thumbnail"
+									*ngIf="pmts.person.photos.length>0&&pmts.actor;else noPhoto"
+									[src]="pmts.person.photos[0].path" (click)="personDetails(pmts.person.id)">
+								<ng-template #noPhoto>
+									<div>
+										<img *ngIf="pmts.actor" class="img-fluid img-thumbnail persondata"
+											(click)="personDetails(pmts.person.id)"
+											src="../../../../assets/pavatar.png">
+									</div>
+								</ng-template>
+								<figcaption *ngIf="pmts.actor" class="figure-caption persondata">
+									{{pmts.person.firstName}}
+									{{pmts.person.lastName}} as {{pmts.castName}}</figcaption>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>

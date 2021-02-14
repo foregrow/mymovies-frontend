@@ -24,6 +24,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { RoleFilterPipe } from './filters/roleFilter.pipe';
 import { YearFilterPipe } from './filters/yearFilter.pipe';
 import { PhotoService } from './services/photo.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { PhotoService } from './services/photo.service';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    CarouselModule
+    CarouselModule,
+    ScrollingModule
   ],
   providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,PhotoService,
   {

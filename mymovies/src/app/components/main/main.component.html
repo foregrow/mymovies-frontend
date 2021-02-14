@@ -15,10 +15,8 @@
 
 <div class="container" *ngIf="isSearched">
     <h3 class="mb-5 mt-1">Results for "{{resultValue}}"</h3>
-    <div *ngIf="!searchResultsData || searchResultsData.length==0">
-        <h3>No results found.</h3>
-    </div>
-    <div *ngIf="searchResultsData && searchResultsData.length>0">
+    
+    <div *ngIf="searchResultsData && searchResultsData.length>0;else noResults">
         <div class="well mb-3" *ngFor="let obj of searchResultsData">
             <!-- if movietvshows -->
             <div class="media" (click)="mtsOrPersonDetails('mts',obj.id)" *ngIf="chosenEntityValue&&chosenEntityValue==='mts'">
@@ -44,5 +42,9 @@
             </div>
         </div>
     </div>
-
+    <ng-template #noResults>
+        <div>
+            <h3>No results found.</h3>
+        </div>
+      </ng-template>
 </div>

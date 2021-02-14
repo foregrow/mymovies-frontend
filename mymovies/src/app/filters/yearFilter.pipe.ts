@@ -15,4 +15,11 @@ export class YearFilterPipe implements PipeTransform{
         return orderBy(moviestvshows, [sortBy], [sortOrder]);
     
     }
+    // transform(moviestvshows:any[]){
+    //     if(!moviestvshows){
+    //         return moviestvshows;
+    //     }
+    //     return moviestvshows.sort((a, b) => a.releaseYear - b.releaseYear);
+    
+    // }
 }

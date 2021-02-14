@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <owl-carousel-o [options]="customOptions">
             <ng-template *ngFor="let psrc of photoSrcs" carouselSlide>
                 <div class="item">
@@ -10,7 +10,6 @@
 
 <div class="container" *ngIf="dataDetails">
     <div class="well mb-3">
-        <!-- if movietvshows -->
         <div class="media">
             <a class="pull-left mr-1">
                 <img class="media-object h-100" src="http://placekitten.com/150/150">
@@ -45,4 +44,78 @@
         </tbody>
     </table>
 </div>
+</div> -->
+<div class="main">
+    <main *ngIf="dataDetails">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters">
+                <div class="col-xl-1">
+                    <div class="menu">
+                        <h6 class="bg-warning text-dark">PERSON</h6>
+                        <p class="mt-5"><i class="fa fa-user text-warning"></i> <br> Account</p>
+                        <hr>
+                        <p class="mt-5"><i class="fa fa-home text-warning"></i> <br> Home</p>
+                        <hr>
+                        <p class="mt-5"><i class="fa fa-video text-warning"></i> <br> Movie</p>
+                        <hr>
+                        <p class="mt-5"><i class="fa fa-newspaper text-warning"></i> <br> News</p>
+                        <hr>
+                        <p class="mt-5"><i class="fa fa-tv text-warning"></i> <br> TV Series</p>
+
+                        <!-- <div class="row no-gutters justify-content-center icon-social">
+                            <i class="fa fa-instagram"></i>
+                            <i class="fa fa-facebook ml-2"></i>
+                            <i class="fa fa-twitter ml-2"></i>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-xl-11">
+                    <div class="background">
+                        <div class="background-content">
+                            <h3 class="display-3">{{dataDetails.firstName}} {{dataDetails.lastName}}</h3>
+                            <div class="row no-gutters mt-1">
+                                <p class="ml-3">({{dataDetails.bornDate |
+                                    date:'yyyy'}}-{{dataDetails.diedDate| date:'yyyy'}})</p>
+                            </div>
+                            <div class="row mediaparent">
+                                <div class="col-3 mediachild">
+                                    <owl-carousel-o [options]="customOptions">
+                                        <ng-template *ngFor="let p of dataDetails.photos" carouselSlide>
+                                            <div class="slide">
+                                                <img class="mtsimgs img-fluid img-thumbnail" [src]="p.path" width="200">
+                                            </div>
+
+                                        </ng-template>
+                                    </owl-carousel-o>
+                                </div>
+                            </div>
+                            <div class="w-50">
+                                <p class="text-muted mt-5 ml-3 mb-5 desc">{{dataDetails.bio}}</p>
+                            </div>
+                        </div>
+                        <div class="container-fluid pl-5">
+                            <div class="row">
+                                <div class="col-md-2 pcol"
+                                    *ngFor="let mts of dataDetails.moviesTvShows | yearFilter:'releaseYear':'desc';index as i">
+                                    <img class="img-fluid img-thumbnail moviedata" 
+                                        *ngIf="mts.movieTvShow?.photos?.length>0;else noPhoto"
+                                        [src]="mts.movieTvShow?.photos[0].path" 
+                                        (click)="mtsDetails(mts.movieTvShow.id)">
+                                    <ng-template #noPhoto>
+                                        <div>
+                                            <img class="img-fluid img-thumbnail moviedata"
+                                                (click)="mtsDetails(mts.movieTvShow.id)"
+                                                src="../../../../assets/mavatar.jpg">
+                                        </div>
+                                    </ng-template>
+                                    <figcaption class="figure-caption moviedata">{{mts.movieTvShow.name}}
+                                        ({{mts.movieTvShow.releaseYear}})</figcaption>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>

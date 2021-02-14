@@ -11,7 +11,7 @@ import { PersonmtsService } from 'src/app/services/personmts.service';
 import { Person } from 'src/app/models/persons';
 import { PersonService } from 'src/app/services/person.service';
 import { error } from 'protractor';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import { ExternalApiService } from 'src/app/services/external-api.service';
 import { Trailer } from 'src/app/models/trailers';
 import { Statics } from 'src/app/utils/statics';
@@ -23,7 +23,21 @@ import { PhotoService } from 'src/app/services/photo.service';
   styleUrls: ['./mtsdetail.component.css']
 })
 export class MtsdetailComponent implements OnInit {
-
+  customOptions: any = {
+    loop: true,
+    margin: 10,
+    // autoplay:true,
+    // responsiveClass: true,
+    autoHeight: true,
+    navText: ["<i class='fa fa-caret-left'></i>",
+    "<i class='fa fa-caret-right'></i>"],
+    responsive: {
+      0: {
+       items: 1
+     }
+    },
+   nav: true
+  }
   trailerUrl;
   addEditParam: any;
   movietvshow: any;
@@ -90,7 +104,17 @@ export class MtsdetailComponent implements OnInit {
     this.genre?.valueChanges.subscribe(
       () => { this.addGenre(); }
     )
-
+    this.genre?.valueChanges.subscribe(
+      () => { this.addGenre(); }
+    )
+    
+    // this.newPersonActor?.valueChanges.subscribe(
+    //   () => { 
+    //     if(this.newPersonActor.value==='true'){
+    //       console.log(this.newPersonActor.value);
+    //     }
+    //    }
+    // )
 
   }
   displayGenre(obj: any) {
@@ -131,7 +155,7 @@ export class MtsdetailComponent implements OnInit {
     personActor: [''],
     personWriter: [''],
     newPersonFirstLast: [''],
-    newPersonCastName: ['', Validators.required],
+    newPersonCastName: [''],
     newPersonActorRole: [''],
     newPersonComposer: [''],
     newPersonDirector: [''],
@@ -321,7 +345,6 @@ export class MtsdetailComponent implements OnInit {
     }
   }
 
-
   addGenre() {
     if (this.genres.includes(this.genre?.value) && !this.chosenGenres.includes(this.genre?.value)) {
       this.chosenGenres.push(this.genre?.value);
@@ -349,6 +372,16 @@ export class MtsdetailComponent implements OnInit {
     this.chosenPersons = [];
     this.alreadyChosenPersons?.setValue('');
   }
+  urlCache = new Map<string, SafeResourceUrl>();
+  getIframeYouTubeUrl(videoId: string): SafeResourceUrl {
+    let url = this.urlCache.get(videoId);
+    if (!url) {
+      url = this._sanitizer.bypassSecurityTrustResourceUrl(
+        "https://www.youtube.com/embed/" + videoId + "?enablejsapi=1");;
+      this.urlCache.set(videoId, url);
+    }
+    return url;
+  }
   selectedFile;
   onFileChanged(event){
     this.selectedFile = event.target.files[0];
@@ -366,14 +399,14 @@ export class MtsdetailComponent implements OnInit {
   submit(param: any) {
     if (param === 'addNewCast') {
       //adding new cast
-      if (this.newPersonWriter?.value === '' || this.newPersonCastName?.value === '' || this.newPersonActor?.value === '' ||
-        (this.newPersonActor?.value !== '' && this.newPersonActorRole?.value === '')
-        || this.newPersonDirector?.value === '' || this.newPersonActorRole?.value === '' || this.newPersonComposer?.value === ''
-        || !this.newPersonFirstLast) {
+
+      if ((!this.newPersonFirstLast.value || this.newPersonDirector?.value === '' || this.newPersonComposer?.value === '' || this.newPersonWriter?.value==='' || this.newPersonActor?.value==='' ||
+      (this.newPersonActor.value==='true' && (this.newPersonCastName?.value === '' || this.newPersonActorRole?.value==='')))) {
         alert('All fields must be filled in!');
       } else {
+        
         let castName = this.newPersonCastName.value;
-        let actorRole = this.newPersonActorRole.value;
+        let actorRole = this.newPersonActorRole.value ? this.newPersonActorRole.value : 'NO';
         let director = this.newPersonDirector.value;
         let composer = this.newPersonComposer.value;
         let actor = this.newPersonActor.value;
@@ -415,8 +448,8 @@ export class MtsdetailComponent implements OnInit {
           let trailers: Trailer[] = [];
           if(this.videos.length>0){
             this.videos.forEach(videoId=>{
-              let path = `${Statics.youtubeEmbedBase}/${videoId}`
-              let trailer = new Trailer(null,null,path,null);
+              // let path = `${Statics.youtubeEmbedBase}/${videoId}`
+              let trailer = new Trailer(null,null,videoId,null);
               trailers.push(trailer);
             })
           }
