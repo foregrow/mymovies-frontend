@@ -1,0 +1,121 @@
+body {
+  padding: 0;
+  font-family: Merriweather;
+}
+
+.item {
+  transition: .4s ease all;
+  transform: scale(0.5);
+}
+.item img{
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 500px !important; 
+}
+.active .item {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 1;
+  max-height: 500px !important;
+}
+
+
+/* Before animation */
+@-webkit-keyframes reveal-text {
+  from {
+    -webkit-clip-path: inset(0 100% 0 0);
+            clip-path: inset(0 100% 0 0);
+  }
+  to {
+    -webkit-clip-path: inset(0 0 0 0);
+            clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes reveal-text {
+  from {
+    -webkit-clip-path: inset(0 100% 0 0);
+            clip-path: inset(0 100% 0 0);
+  }
+  to {
+    -webkit-clip-path: inset(0 0 0 0);
+            clip-path: inset(0 0 0 0);
+  }
+}
+
+/* After animation */
+@-webkit-keyframes revealer-text {
+  0%, 50% {
+    -webkit-transform-origin: 0 50%;
+            transform-origin: 0 50%;
+  }
+  60%, 100% {
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+  }
+  50% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+  60% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+  100% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+  }
+}
+@keyframes revealer-text {
+  0%, 50% {
+    -webkit-transform-origin: 0 50%;
+            transform-origin: 0 50%;
+  }
+  60%, 100% {
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+  }
+  50% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+  60% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+  100% {
+    -webkit-transform: scaleX(0);
+            transform: scaleX(0);
+  }
+}
+
+
+@media only screen and (max-width:768px) {
+  #full-width{
+    padding: 0;
+  }
+  .item{
+    transform: scale(0);
+  }
+  .item img{
+    height: 400px !important;
+  }
+  .active .item img{
+    max-height: 400px;
+  }
+}
+@media only screen and (max-width:420px) {
+  .item img{
+    height: 200px !important;
+  }
+  .active .item img{
+    max-height: 200px;
+  }
+}
+
+
+.img:hover{
+  opacity: 80%;
+  cursor: pointer;
+}

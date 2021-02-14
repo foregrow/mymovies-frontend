@@ -21,13 +21,18 @@ import { SeasonService } from './services/season.service';
 import { EpisodeService } from './services/episode.service';
 import { EpisodesFilterPipe } from './filters/episodesFilter.pipe';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { RoleFilterPipe } from './filters/roleFilter.pipe';
+import { YearFilterPipe } from './filters/yearFilter.pipe';
+import { PhotoService } from './services/photo.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
     SeasonsFilterPipe,
-    EpisodesFilterPipe
+    EpisodesFilterPipe,
+    RoleFilterPipe,
+    YearFilterPipe
     
   ],
   imports: [
@@ -40,7 +45,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     MaterialModule,
     CarouselModule
   ],
-  providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,
+  providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,PhotoService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

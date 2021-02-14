@@ -29,6 +29,16 @@
     <button *ngIf="this.addEditParam !== 'add'" class="btn btn-primary" (click)="submit('edit')" [disabled]="addEditForm?.invalid" type="submit">Edit</button>
 
 </form>
+
+<div class="container row mt-5 mb-5" *ngIf="person && addEditParam !== 'add'">
+  <h4 class="col-md-12">Upload photo</h4>
+  <div class="col-md-6">
+      <input type="file" (change)="onFileChanged($event)">
+  </div>
+  <div class="col-md-6">
+      <input type="button" (click)="onUpload()" value="upload">
+  </div>
+</div>
 </div>
 
 <div *ngIf="this.addEditParam !== 'add' && person!==undefined" class="w-50">

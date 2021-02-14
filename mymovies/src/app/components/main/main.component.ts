@@ -91,12 +91,11 @@ export class MainComponent implements OnInit {
   }
 
   mtsOrPersonDetails(param,id){
-    this._router.navigate([`details/${param}/${id}`]);
-    // if(param==='mts'){
-    //   this._router.navigate([`details/${param}/${id}`]);
-    // }else if(param==='person'){
-    //   this._router.navigate([`person-detail/${id}`]);
-    // }
+    if(param==='mts'){
+      this._router.navigate([`movie-details/${id}`]);
+    }else if(param==='person'){
+      this._router.navigate([`person-details/${id}`]);
+    }
     // this._router.navigate(['search']);
   }
 

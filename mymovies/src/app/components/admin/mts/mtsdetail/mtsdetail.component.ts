@@ -15,6 +15,7 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import { ExternalApiService } from 'src/app/services/external-api.service';
 import { Trailer } from 'src/app/models/trailers';
 import { Statics } from 'src/app/utils/statics';
+import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
   selector: 'app-mtsdetail',
@@ -65,7 +66,8 @@ export class MtsdetailComponent implements OnInit {
     private _route: ActivatedRoute,
     private datePipe: DatePipe,
     private _sanitizer: DomSanitizer,
-    private _externalAPIService: ExternalApiService) {
+    private _externalAPIService: ExternalApiService,
+    private _phs:PhotoService) {
 
   }
 
@@ -347,8 +349,19 @@ export class MtsdetailComponent implements OnInit {
     this.chosenPersons = [];
     this.alreadyChosenPersons?.setValue('');
   }
+  selectedFile;
+  onFileChanged(event){
+    this.selectedFile = event.target.files[0];
+  }
 
-
+  onUpload(){
+    console.log(this.selectedFile);
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    uploadImageData.append('entity','mts');
+    uploadImageData.append('id',this.movietvshow.id);
+    this._phs.add(uploadImageData);
+  }
 
   submit(param: any) {
     if (param === 'addNewCast') {

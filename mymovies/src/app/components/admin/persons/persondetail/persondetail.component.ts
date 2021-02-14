@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Person } from 'src/app/models/persons';
 import { PersonService } from 'src/app/services/person.service';
+import { PhotoService } from 'src/app/services/photo.service';
 import { isNumber } from 'util';
 
 @Component({
@@ -27,6 +28,7 @@ export class PersondetailComponent implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private _ps:PersonService,
+    private _phs:PhotoService,
     private _route: ActivatedRoute,
     private datePipe: DatePipe) {}
 
@@ -101,6 +103,20 @@ export class PersondetailComponent implements OnInit {
       }
       
     }
+
+  selectedFile;
+  onFileChanged(event){
+    this.selectedFile = event.target.files[0];
+  }
+
+  onUpload(){
+    console.log(this.selectedFile);
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+    uploadImageData.append('entity','person');
+    uploadImageData.append('id',this.person.id);
+    this._phs.add(uploadImageData);
+  }
 
     get firstName() {
       return this.addEditForm.get('firstName');

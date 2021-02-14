@@ -12,6 +12,7 @@
         </div>
     </div>
 </div>
+
 <div class="container-fluid">
   
     <h4 class="mt-5 mb-3" *ngIf="addEditParam === 'add'">Add
@@ -132,6 +133,16 @@
             [disabled]="addEditForm?.invalid" type="submit">Edit info</button>
 
     </form>
+
+    <div class="container row mt-5 mb-5" *ngIf="movietvshow && addEditParam !== 'add'">
+        <h4 class="col-md-12">Upload photo</h4>
+        <div class="col-md-6">
+            <input type="file" (change)="onFileChanged($event)">
+        </div>
+        <div class="col-md-6">
+            <input type="button" (click)="onUpload()" value="upload">
+        </div>
+    </div>
 
     <div *ngIf="this.addEditParam !== 'add' && movietvshow!==undefined" class="w-100">
         <h2 class="mt-5">Full cast <a class="btn btn-sm text-white btn-primary ml-3" (click)="addCast()">Add cast</a>

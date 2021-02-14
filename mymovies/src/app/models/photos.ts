@@ -16,16 +16,20 @@ export class Photo{
    id:number;
    name:string;
    path:string;
+   type:string;
+   picByte:any;
    movieTvShow?: MovieTvShow;
    person?: Person;
    user?: User;
 
    
-   constructor(id:number,name:string,path:string,movieTvShow?:MovieTvShow,
+   constructor(id:number,name:string,path:string,movieTvShow?:MovieTvShow,type?:string,picByte?:any,
     person?:Person,user?:User){
         this.id = id;
         this.name = name;
         this.path=path;
+        this.type=type;
+        this.picByte=picByte;
         this.movieTvShow=movieTvShow;
         this.person=person;
         this.user = user;
