@@ -1,0 +1,49 @@
+<nav class="mat-toolbar">
+    <!-- <div>
+        <i class="fa fa-film" aria-hidden="true"> mymovies</i>
+    </div>
+    <div class="spacer"></div>
+    <div>
+        <a (click)="home()"><i class="fa fa-home mr-5" aria-hidden="true"> Home</i></a>
+        <a (click)="channels()"><i class="fa fa-television mr-5" aria-hidden="true"> Channels</i></a>
+        <a (click)="us.logout()"><i class="fa fa-sign-out mr-1" aria-hidden="true"> Logout</i></a>
+
+    </div> -->
+    <ul>
+        <li class="logo">mymovies</li>
+        <!-- <li class="btn"><i class="fa fa-bars" aria-hidden="true"></i>  </li>-->
+        <div class="items">
+            <li>
+                <a (click)="home()"><i class="fa fa-home" aria-hidden="true">Home</i></a>
+            </li>
+            <li>
+                <a (click)="channels()"><i class="fa fa-television" aria-hidden="true">Channels</i></a>
+            </li>
+
+            <li *ngIf="us.getRole()==='ADMIN'">
+                <a (click)="users()">
+                    <i class="fa fa-user-circle-o" aria-hidden="true">Users</i></a>
+            </li>
+            <li *ngIf="us.getRole()==='ADMIN'"><a (click)="persons()">
+                    <i class="fa fa-male" aria-hidden="true"></i>
+                    <i class="fa fa-female" aria-hidden="true">Persons</i> </a></li>
+            <li *ngIf="us.getRole()==='ADMIN'"><a (click)="moviestvshows()">
+                    <i class="fa fa-film" aria-hidden="true">Movies/TV Shows</i></a></li>
+            <li *ngIf="us.getRole()==='ADMIN'"><a (click)="genres()">
+                    <i class="fa fa-glide" aria-hidden="true">Genres</i></a></li>
+            <li *ngIf="us.getRole()==='ADMIN'"><a (click)="seasons()">
+                    <i class="fa fa-archive" aria-hidden="true">Seasons</i></a></li>
+            <li *ngIf="us.getRole()==='ADMIN'"><a (click)="episodes()">
+                    <i class="fa fa-align-left" aria-hidden="true">Episodes</i></a></li>
+            <li>
+                <a (click)="us.logout()"><i class="fa fa-sign-out" aria-hidden="true">Logout</i></a>
+            </li>
+        </div>
+        <li class="search-icon">
+            <input type="search" placeholder="Search" [(ngModel)]="searchValue">
+            <label class="icon" (click)="searchByParam()">
+                <i class="fa fa-search"></i>
+            </label>
+        </li>
+    </ul>
+</nav>

@@ -3,3 +3,22 @@
     background-color: lightblue;
     cursor: pointer;
 }
+
+.allmoviesdata{
+	color: white;
+	opacity: 0.9;
+}
+.allmoviesdata .img-fluid{
+	max-height: 250px;
+}
+.allmoviesdata figcaption{
+    color: white;
+    font-size: 900;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.allmoviesdata:hover {
+	opacity: 1;
+	cursor: pointer;
+	transform: scale(1.1);
+}

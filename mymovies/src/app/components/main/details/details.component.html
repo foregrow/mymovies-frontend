@@ -1,27 +1,7 @@
 <main *ngIf="dataDetails">
 	<div class="container-fluid p-0">
 		<div class="row no-gutters">
-			<div class="col-xl-1">
-				<div class="menu">
-					<h6 class="bg-warning text-dark">MOVIES</h6>
-					<p class="mt-5"><i class="fa fa-user text-warning"></i> <br> Account</p>
-					<hr>
-					<p class="mt-5"><i class="fa fa-home text-warning"></i> <br> Home</p>
-					<hr>
-					<p class="mt-5"><i class="fa fa-video text-warning"></i> <br> Movie</p>
-					<hr>
-					<p class="mt-5"><i class="fa fa-newspaper text-warning"></i> <br> News</p>
-					<hr>
-					<p class="mt-5"><i class="fa fa-tv text-warning"></i> <br> TV Series</p>
-
-					<!-- <div class="row no-gutters justify-content-center icon-social">
-						<i class="fa fa-instagram"></i>
-						<i class="fa fa-facebook ml-2"></i>
-						<i class="fa fa-twitter ml-2"></i>
-					</div> -->
-				</div>
-			</div>
-			<div class="col-xl-11">
+			<div class="col">
 				<div class="background">
 					<div class="background-content">
 						<h1 class="display-3">{{dataDetails.name}}</h1>
@@ -115,21 +95,21 @@
 							<p class="mt-5 ml-3 mb-5 desc">{{dataDetails.description}}</p>
 						</div>
 					</div>
-					<div class="container-fluid pl-5">
+					<div class="container-fluid pl-5 pb-5">
 						<div class="row">
-							<div class="col-md-2"
+							<div class="col-md-2 persondata"
 								*ngFor="let pmts of dataDetails.persons| roleFilter:'actorRole';index as i">
-								<img class="persondata img-fluid img-thumbnail"
+								<img class="img-fluid img-thumbnail"
 									*ngIf="pmts.person.photos.length>0&&pmts.actor;else noPhoto"
 									[src]="pmts.person.photos[0].path" (click)="personDetails(pmts.person.id)">
 								<ng-template #noPhoto>
 									<div>
-										<img *ngIf="pmts.actor" class="img-fluid img-thumbnail persondata"
+										<img *ngIf="pmts.actor" class="img-fluid img-thumbnail"
 											(click)="personDetails(pmts.person.id)"
 											src="../../../../assets/pavatar.png">
 									</div>
 								</ng-template>
-								<figcaption *ngIf="pmts.actor" class="figure-caption persondata">
+								<figcaption *ngIf="pmts.actor" class="figure-caption">
 									{{pmts.person.firstName}}
 									{{pmts.person.lastName}} as {{pmts.castName}}</figcaption>
 							</div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { error } from 'protractor';
+import { Subscription } from 'rxjs';
 import { MovieTvShow } from 'src/app/models/movietvshows';
 import { Person } from 'src/app/models/persons';
 import { ExternalApiService } from 'src/app/services/external-api.service';
@@ -15,13 +16,13 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  searchResultsData:any[];
-  // moviestvshows:MovieTvShow[];
+  searchResultsData: any[];
+  moviestvshows: MovieTvShow[] = [];
   // persons:Person[];
-  searchValue:string;
-  resultValue:string;
-  isSearched:boolean=false;
-  chosenEntityValue:string="";
+  searchValue: string;
+  resultValue: string;
+  isSearched: boolean = false;
+  chosenEntityValue: string = "";
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
@@ -34,15 +35,28 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.getExternalToken();
     this.chosenEntity.setValue('mts');
-    // this.getPersons();
-    // this.getMTS();
+    this._us.on<string>().subscribe(
+      data => {
+        this.searchValue = data;
+        if (!this.searchValue || this.searchValue === '') {
+          this.getMTS();
+        } else { this.searchDetails(); }
+      }
+    );
+
   }
-  // getMTS(){
-  //   this._mtss.getAll().subscribe(
-  //     data=>{this.moviestvshows=data,console.log(this.moviestvshows);},
-  //     error=>{console.log(error);}
-  //   );
-  // }
+  getMTS() {
+    this.isSearched = false;
+    //getAll unless its already got
+    if (this.moviestvshows.length === 0) {
+      this._mtss.getAll().subscribe(
+        data => { this.moviestvshows = data, console.log(this.moviestvshows); },
+        error => {
+          console.log(error);
+        });
+    }
+
+  }
   // getPersons(){
   //   this._ps.getAll().subscribe(
   //     data=>{this.persons=data,console.log(this.persons);},
@@ -50,50 +64,50 @@ export class MainComponent implements OnInit {
   //   );
   // }
   chosenEntity = new FormControl();
-  getExternalToken(){
+  getExternalToken() {
     this._externalApiService.getExternalAccessToken().subscribe(
-      data=>{
+      data => {
         this._externalApiService.setExternalAccessTokenInLocalStorage(data.access_token);
-      },error=>{
+      }, error => {
         console.log(error);
       }
     )
   }
-  searchDetails(){
-    this.isSearched = true;
-    this.resultValue = this.searchValue.trim();
-    
-    this.chosenEntityValue=this.chosenEntity.value;
-    if(!this.resultValue || this.resultValue===''){
-      this.searchResultsData = [];
-    }else{ 
-      if(this.chosenEntityValue==='mts'){
-        this._mtss.findAllByNameContains(this.resultValue).subscribe(
-          data=>{this.searchResultsData=data
-            console.log(this.searchResultsData);
-          },
-          error=>{console.log(error);}
-        );
-      }else if(this.chosenEntityValue==='persons'){
-        this._ps.findAllByFNameOrLNameContains(this.resultValue).subscribe(
-          data=>{this.searchResultsData=data,
-            console.log(this.searchResultsData);
-  
-          },
-          error=>{console.log(error);}
-        );
+  searchDetails() {
+    if (this.searchValue && this.searchValue !== '') {
+      this.isSearched = true;
+      this.resultValue = this.searchValue;
+      this.chosenEntityValue = this.chosenEntity.value;
+      if (!this.resultValue || this.resultValue === '') {
+        this.searchResultsData = [];
+      } else {
+        if (this.chosenEntityValue === 'mts') {
+          this._mtss.findAllByNameContains(this.resultValue).subscribe(
+            data => {
+              this.searchResultsData = data
+            },
+            error => { console.log(error); }
+          );
+        } else if (this.chosenEntityValue === 'persons') {
+          this._ps.findAllByFNameOrLNameContains(this.resultValue).subscribe(
+            data => {
+              this.searchResultsData = data
+            },
+            error => { console.log(error); }
+          );
+        }
       }
     }
-    this.searchValue="";
-  } 
-  channelsMovies(){
+
+  }
+  channelsMovies() {
     this._router.navigate(['channels-movies']);
   }
 
-  mtsOrPersonDetails(param,id){
-    if(param==='mts'){
+  mtsOrPersonDetails(param, id) {
+    if (param === 'mts') {
       this._router.navigate([`movie-details/${id}`]);
-    }else if(param==='person'){
+    } else if (param === 'person') {
       this._router.navigate([`person-details/${id}`]);
     }
     // this._router.navigate(['search']);

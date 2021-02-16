@@ -2,17 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
+import { EventEmitter } from 'events';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Statics } from '../utils/statics';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
+  public subject = new BehaviorSubject<any>('');
   private static readonly entityBaseURL: string = `${Statics.serverBaseURL}/${Statics.api}/${Statics.users}`;
   constructor(private _http: HttpClient,private _router: Router) { }
-
+  emit<T>(data:T){
+    this.subject.next(data);
+  }
+  on<T>():Observable<T>{
+    return this.subject.asObservable();
+  }
   getAll() : Observable<any>{
     return this._http.get<any>(UserService.entityBaseURL);
   }

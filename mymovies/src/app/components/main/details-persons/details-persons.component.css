@@ -7,6 +7,7 @@
 .mediaparent{
 	align-items: flex-end;
 }
+
 .desc{
 	color: white;
 	margin-bottom: 20px;
@@ -29,7 +30,7 @@
 	margin-right: 3px;
 }
 hr{
-	background: #3c3c3c;
+	background: #361212;
 }
 .icon-social{
 	margin-top: 300px;
@@ -57,7 +58,10 @@ hr{
 
 .background-content {
 	position: relative;
-	padding: 90px;
+	padding-left: 90px;
+	padding-right: 90px;
+	padding-bottom: 90px;
+	padding-top:20px;
 }
 
 .background-content h3 {
@@ -91,6 +95,9 @@ hr{
 .moviedata{
 	color: white;
 	opacity: 0.9;
+}
+.moviedata figcaption{
+    color: white;
 }
 .moviedata:hover {
 	opacity: 1;

@@ -20,6 +20,7 @@ import { SeasondetailComponent } from './components/admin/seasons/seasondetail/s
 import { EpisodedetailComponent } from './components/admin/episodes/episodedetail/episodedetail.component';
 import { DetailsComponent } from './components/main/details/details.component';
 import { DetailsPersonsComponent } from './components/main/details-persons/details-persons.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -61,7 +62,7 @@ const routes: Routes = [
   },
   {path:"channels-movies", component:ChannelMoviesComponent, canActivate:[AuthGuard,RoleGuard],
   data: {
-      roles: ['USER']
+      roles: ['USER','ADMIN']
     },
   },
 
@@ -75,6 +76,6 @@ const routes: Routes = [
   providers: []
 })
 export class AppRoutingModule { }
-export const routingComponents = [ErrorComponent,LoginComponent,AdminComponent,MainComponent,ChannelMoviesComponent,RegisterComponent,
+export const routingComponents = [NavbarComponent,ErrorComponent,LoginComponent,AdminComponent,MainComponent,ChannelMoviesComponent,RegisterComponent,
 UsersComponent,GenresComponent,SeasonsComponent,EpisodesComponent,PersonsComponent,PersondetailComponent,MtsComponent,MtsdetailComponent,
 SeasondetailComponent,EpisodedetailComponent,DetailsComponent,DetailsPersonsComponent]

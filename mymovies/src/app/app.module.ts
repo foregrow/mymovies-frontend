@@ -26,14 +26,16 @@ import { YearFilterPipe } from './filters/yearFilter.pipe';
 import { PhotoService } from './services/photo.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
+const pipes=[SeasonsFilterPipe,
+  EpisodesFilterPipe,
+  RoleFilterPipe,
+  YearFilterPipe]
+  
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    SeasonsFilterPipe,
-    EpisodesFilterPipe,
-    RoleFilterPipe,
-    YearFilterPipe
+    pipes
     
   ],
   imports: [
@@ -56,3 +58,5 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
