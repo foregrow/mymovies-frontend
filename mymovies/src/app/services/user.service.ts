@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { EventEmitter } from 'events';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Statics } from '../utils/statics';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   public subject = new BehaviorSubject<any>('');
-  private static readonly entityBaseURL: string = `${Statics.serverBaseURL}/${Statics.api}/${Statics.users}`;
+  private static readonly entityBaseURL: string = `${environment.backendApiURL}/${environment.api}/${environment.users}`;
   constructor(private _http: HttpClient,private _router: Router) { }
   emit<T>(data:T){
     this.subject.next(data);
@@ -40,13 +40,13 @@ export class UserService {
   }
   
   login(userData:any){
-    return this._http.post<any>(`${Statics.serverBaseURL}/${Statics.authenticateURL}`, userData);
+    return this._http.post<any>(`${environment.backendApiURL}/${environment.authenticateURL}`, userData);
   }
 
   getRedirectedByRole(role:any){
-    if(role == Statics.adminRole)
+    if(role == environment.adminRole)
       this._router.navigate(['admin']);
-    else if(role == Statics.userRole)
+    else if(role == environment.userRole)
       this._router.navigate(['main']);
     else
       this._router.navigate(['login']);

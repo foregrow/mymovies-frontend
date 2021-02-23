@@ -1,12 +1,10 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { UserService } from './user.service';
-import { Statics } from '../utils/statics';
 import { ExternalApiService } from './external-api.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { TranslateApiService } from './translate-api.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -23,9 +21,9 @@ export class TokenInterceptorService implements HttpInterceptor {
   
   intercept(req:HttpRequest<any>,next:HttpHandler):Observable<HttpEvent<any>>{
     let tokenizedReq;
-    if(req.url.startsWith(Statics.externalAPIBaseURL)){
+    if(req.url.startsWith(environment.externalApiBaseURL)){
       let externalAPIService = this.inj.get(ExternalApiService);
-      if(req.url!==Statics.externalTokenURL){ 
+      if(req.url!==`${environment.externalApiBaseURL}${environment.externalTokenURL}`){ 
         tokenizedReq = req.clone({
           setHeaders: {
             Authorization: `Bearer ${externalAPIService.getExternalAccessTokenFromLocalStorage()}`
@@ -34,7 +32,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       }else{
         tokenizedReq = req.clone({
           setHeaders: {
-            Authorization: Statics.authHeadersValue
+            Authorization: environment.authHeadersValue
           }
           
         });
@@ -71,7 +69,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     }
     return next.handle(tokenizedReq).pipe(
       catchError((errorResponse: HttpErrorResponse) => {
-          if(errorResponse.url!==`${Statics.serverBaseURL}/${Statics.authenticateURL}`){
+          if(errorResponse.url!==`${environment.backendApiURL}/${environment.authenticateURL}`){
             let userService = this.inj.get(UserService);
             //userService.removeTokenFromStorage();
             

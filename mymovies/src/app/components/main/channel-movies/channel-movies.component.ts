@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ExternalApiService } from 'src/app/services/external-api.service';
 import { DateUtils } from 'src/app/utils/dateutils';
-import { Statics } from 'src/app/utils/statics';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChannelMovie } from 'src/app/models/channelmovie';
 import { MatSort } from '@angular/material/sort';
 import { TranslateApiService } from 'src/app/services/translate-api.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-channel-movies',
@@ -50,7 +50,7 @@ export class ChannelMoviesComponent implements OnInit {
                 let moviesData = data[cid];
                 for(let j=0;j<moviesData.length;j++){
                   let movie = moviesData[j];
-                  if(movie['categories'].length==1&&movie['categories'].includes(Statics.movieCategory)
+                  if(movie['categories'].length==1&&movie['categories'].includes(environment.movieCategory)
                     &&DateUtils.isMovieInFuture(movie['startTime'])){
                     console.log(movie);
                     channelMovie= new ChannelMovie(counter++,movie['id'],movie['title'],movie['startTime'],movie['endTime'],channelName);

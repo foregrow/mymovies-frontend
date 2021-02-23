@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Statics } from '../utils/statics';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsermtsService {
 
-  private static readonly entityBaseURL: string = `${Statics.serverBaseURL}/${Statics.api}/${Statics.usermts}`;
+  private static readonly entityBaseURL: string = `${environment.backendApiURL}/${environment.api}/${environment.usermts}`;
   constructor(private _http: HttpClient,private _router: Router) { }
 
   getAll() : Observable<any>{

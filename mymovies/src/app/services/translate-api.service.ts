@@ -1,10 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Statics } from '../utils/statics';
-
 @Injectable({
   providedIn: 'root'
 })

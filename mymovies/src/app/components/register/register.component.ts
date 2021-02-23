@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Photo } from 'src/app/models/photos';
 import { User } from 'src/app/models/users';
 import { UserService } from 'src/app/services/user.service';
-import { Statics } from 'src/app/utils/statics';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -58,7 +57,7 @@ export class RegisterComponent implements OnInit {
   submitRegistration(){
     let email = this.email?.value;
     let password = this.password?.value;
-    let data = new User(0,email,password,Statics.userRole);
+    let data = new User(0,email,password,environment.userRole);
     this._us.add(data).subscribe(data=>{
       alert('Successfully registered! ');
       this._router.navigate(['login']);
