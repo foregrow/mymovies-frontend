@@ -12,7 +12,9 @@ menu{
 	align-items: flex-start;
 	color: white;
 }
-
+.ratings{
+	float: left;
+}
 .desc{
 	color: white;
 	margin-bottom: 20px;

@@ -3,9 +3,15 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
-};
+  production: false,
+  backendApiURL: 'http://localhost:8080/',
+  externalApiBaseURL: 'https://api-web.ug-be.cdn.united.cloud',
+  translateApiURL: 'https://google-translate1.p.rapidapi.com/language/translate/v2',
+  adminRole: "ADMIN",
+  userRole: "USER",
+  youtubeVideosApiURL: 'https://www.googleapis.com/youtube/v3/videos'
 
+};
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

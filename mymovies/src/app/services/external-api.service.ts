@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { DateUtils } from '../utils/dateutils';
 import { Statics } from '../utils/statics';
 
@@ -37,7 +38,7 @@ export class ExternalApiService {
   }
 
   getYTVideoById(videoId){
-    return this._http.get<any>(Statics.youtubeVideosApiURL,{params:{
+    return this._http.get<any>(environment.youtubeVideosApiURL,{params:{
       'id':videoId,
     }});
   }

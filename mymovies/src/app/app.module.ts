@@ -25,6 +25,8 @@ import { RoleFilterPipe } from './filters/roleFilter.pipe';
 import { YearFilterPipe } from './filters/yearFilter.pipe';
 import { PhotoService } from './services/photo.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { UsermtsService } from './services/usermts.service';
+import { TranslateApiService } from './services/translate-api.service';
 
 const pipes=[SeasonsFilterPipe,
   EpisodesFilterPipe,
@@ -49,7 +51,7 @@ const pipes=[SeasonsFilterPipe,
     CarouselModule,
     ScrollingModule
   ],
-  providers: [ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,PhotoService,
+  providers: [TranslateApiService,UsermtsService,ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,PhotoService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

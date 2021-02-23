@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ChannelMovie } from 'src/app/models/channelmovie';
 import { MatSort } from '@angular/material/sort';
+import { TranslateApiService } from 'src/app/services/translate-api.service';
 
 @Component({
   selector: 'app-channel-movies',
@@ -23,13 +24,17 @@ export class ChannelMoviesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator:MatPaginator;
   @ViewChild(MatSort) sort:MatSort;
 
-  constructor(private _externalApiService: ExternalApiService) {
+  constructor(private _externalApiService: ExternalApiService,
+    private _ts:TranslateApiService) {
  }
 
   ngOnInit(): void {
     this.getMovies();
   }
-
+  trans() {
+    let res = this._ts.getTranslation('Ostrvo mrtvih');
+    console.log(res);
+  }
   getMovies(){
     let channelMovie:ChannelMovie;
     let counter = 1;
@@ -47,6 +52,7 @@ export class ChannelMoviesComponent implements OnInit {
                   let movie = moviesData[j];
                   if(movie['categories'].length==1&&movie['categories'].includes(Statics.movieCategory)
                     &&DateUtils.isMovieInFuture(movie['startTime'])){
+                    console.log(movie);
                     channelMovie= new ChannelMovie(counter++,movie['id'],movie['title'],movie['startTime'],movie['endTime'],channelName);
                     this.movies.push(channelMovie);
                   }

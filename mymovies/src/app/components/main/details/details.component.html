@@ -27,14 +27,16 @@
 							</div>
 						</div>
 						<br>
-						<div class="star">
-							<i class="fa fa-star text-warning"></i>
-							<i class="fa fa-star text-warning"></i>
-							<i class="fa fa-star text-warning"></i>
-							<i class="fa fa-star text-warning"></i>
-							<i class="fa fa-star text-dark"></i>
+						
+						<div>
+							<div class="ratings" *ngFor="let i of usermtsRatings">
+								<i class="fa fa-star text-warning"></i>	
+							</div>
+							<div class="ratings" *ngFor="let i of usermtsRatingsDif">
+								<i class="fa fa-star text-dark"></i>	
+							</div>
 						</div>
-
+						<br>
 						<div class="row no-gutters mt-1">
 							<div class="genres" *ngFor="let g of dataDetails.genres">
 								<li class="lig">{{g.type}}</li>

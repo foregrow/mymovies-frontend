@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateApiService } from 'src/app/services/translate-api.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -10,27 +11,27 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm:FormGroup;
+  loginForm: FormGroup;
 
   constructor(private fb: FormBuilder,
     private _us: UserService,
-    private _router: Router){
-      this.loginForm = this.fb.group({
-        email: [''],
-        password: ['']
-        });
-    }
+    private _router: Router) {
+    this.loginForm = this.fb.group({
+      email: [''],
+      password: ['']
+    });
+  }
 
 
   ngOnInit(): void {
-    
+
   }
 
-  submitLogin(){
+  submitLogin() {
     this._us.login(this.loginForm.value)
       .subscribe(
         response => {
-          localStorage.setItem('jwt',response.jwt);
+          localStorage.setItem('jwt', response.jwt);
           let loggedInUserRole = this._us.getRole();
           this._us.getRedirectedByRole(loggedInUserRole);
         },
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  goToRegistration(){
+  goToRegistration() {
     this._router.navigate(['register']);
   }
 

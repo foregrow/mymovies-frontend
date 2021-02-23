@@ -6,6 +6,8 @@ import { ExternalApiService } from './external-api.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { TranslateApiService } from './translate-api.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -38,14 +40,23 @@ export class TokenInterceptorService implements HttpInterceptor {
         });
       }
        
+    }else if(req.url.startsWith(environment.translateApiURL)){
+      const headers = {
+        "content-type": "application/x-www-form-urlencoded",
+        "x-rapidapi-key": "9a33971c83msh3abc36037362aebp102680jsn2f12e3b45be6",
+        "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+        "useQueryString": "true"
+      }
+      tokenizedReq = req.clone({
+        setHeaders: headers,
+      });
     }else{
       //https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDPn3TxVEHi51jAqEAQLignX25Uf_NaZag&id=YoHD9XEInc0
       let userService = this.inj.get(UserService);
-      if(req.url===Statics.youtubeVideosApiURL){
+      if(req.url===environment.youtubeVideosApiURL){
         tokenizedReq = req.clone({
           setParams: {
-            key: 'AIzaSyDPn3TxVEHi51jAqEAQLignX25Uf_NaZag',
-            
+            key: 'AIzaSyDPn3TxVEHi51jAqEAQLignX25Uf_NaZag',   
           }
         });
       }else{
@@ -63,7 +74,9 @@ export class TokenInterceptorService implements HttpInterceptor {
           if(errorResponse.url!==`${Statics.serverBaseURL}/${Statics.authenticateURL}`){
             let userService = this.inj.get(UserService);
             //userService.removeTokenFromStorage();
-            this._router?.navigate(['error']);
+            
+            if (errorResponse.status!==502) this._router?.navigate(['error']) 
+            
           }
           return this.handleError(errorResponse);
       })
