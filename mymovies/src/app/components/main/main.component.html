@@ -29,7 +29,15 @@
             <div class="media" (click)="mtsOrPersonDetails('mts',obj.id)"
                 *ngIf="chosenEntityValue&&chosenEntityValue==='mts'">
                 <a class="pull-left mr-1" href="#">
-                    <img class="media-object h-100" src="http://placekitten.com/150/150">
+                    <!-- <img class="media-object h-100" src="http://placekitten.com/150/150"> -->
+                    <img class="img-thumbnail" style="height: 200px;width: 150px;" *ngIf="obj.photos.length>0;else noPhoto"
+                     [src]="obj.photos[0].path">
+                    <ng-template #noPhoto>
+                        <div>
+                            <img class="img-thumbnail" style="height: 200px;width: 150px;" 
+                                src="../../../assets/mavatar.jpg">
+                        </div>
+                    </ng-template>
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">{{obj.name}} | {{obj.type}} | ({{obj.releaseYear}}) |

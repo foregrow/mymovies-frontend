@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { delay, retryWhen, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { setTimeout } from 'timers';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,19 +15,7 @@ export class TranslateApiService {
     let sourceLang: string = 'sr';
     let tragetLang: string = 'en';
     let data: string = `q=${word}&source=${sourceLang}&target=${tragetLang}`
-    let translatedText;
-    this._http.post(environment.translateApiURL, data).subscribe(
-      data => {
-        if (data.hasOwnProperty('data')) {
-          let dOfData = data['data'];
-          let translations = dOfData['translations'];
-          translatedText = translations[0].translatedText;
-          console.log(translatedText);
-        }
-      }, err => {
-        console.error(err)
-      });
-    return translatedText;
+    return this._http.post(environment.translateApiURL, data);
   }
 
   /*getLangs():Observable<any>{

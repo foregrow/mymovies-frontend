@@ -1,20 +1,16 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieTvShow } from 'src/app/models/movietvshows';
 import { GenreService } from 'src/app/services/genre.service';
 import { MovietvshowService } from 'src/app/services/movietvshow.service';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { PersonMovieTvShow } from 'src/app/models/personmoviestvshows';
 import { PersonmtsService } from 'src/app/services/personmts.service';
-import { Person } from 'src/app/models/persons';
 import { PersonService } from 'src/app/services/person.service';
-import { error } from 'protractor';
 import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import { ExternalApiService } from 'src/app/services/external-api.service';
 import { Trailer } from 'src/app/models/trailers';
-import { Statics } from 'src/app/utils/statics';
 import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({

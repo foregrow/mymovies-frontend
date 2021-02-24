@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { EventEmitter } from 'events';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -93,6 +92,7 @@ export class UserService {
   
   logout(){
     localStorage.removeItem("jwt");
+    localStorage.removeItem("accessToken");
     this._router.navigate(['login'])
   }
 

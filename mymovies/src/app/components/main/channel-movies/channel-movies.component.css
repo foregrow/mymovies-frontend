@@ -1,3 +1,7 @@
 .filter{
     color: white;
 }
+
+.fff:hover{
+    cursor: pointer;
+}

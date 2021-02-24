@@ -37,11 +37,10 @@ export class TokenInterceptorService implements HttpInterceptor {
           
         });
       }
-       
     }else if(req.url.startsWith(environment.translateApiURL)){
       const headers = {
         "content-type": "application/x-www-form-urlencoded",
-        "x-rapidapi-key": "9a33971c83msh3abc36037362aebp102680jsn2f12e3b45be6",
+        "x-rapidapi-key": "a225a022e8msh84e552666e643f7p18e7cdjsne8e16d9866bc",
         "x-rapidapi-host": "google-translate1.p.rapidapi.com",
         "useQueryString": "true"
       }
@@ -73,7 +72,7 @@ export class TokenInterceptorService implements HttpInterceptor {
             let userService = this.inj.get(UserService);
             //userService.removeTokenFromStorage();
             
-            if (errorResponse.status!==502) this._router?.navigate(['error']) 
+            if (errorResponse.status!==502&&errorResponse.status!==429) this._router?.navigate(['error']) 
             
           }
           return this.handleError(errorResponse);

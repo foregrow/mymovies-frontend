@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { error } from 'protractor';
 import { UserService } from '../services/user.service';
-import { Statics } from '../utils/statics';
 
 @Injectable({
   providedIn: 'root'

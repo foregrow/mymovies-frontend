@@ -49,7 +49,7 @@
 
 						<div class="row mediaparent">
 							<div class="col-3 mediachild">
-								<owl-carousel-o [options]="customOptions">
+								<owl-carousel-o class="sova" [options]="customOptions">
 									<ng-template *ngFor="let p of dataDetails.photos" carouselSlide>
 										<div class="slide">
 											<img class="img-fluid img-thumbnail mtsimgs" [src]="p.path" width="200">
@@ -59,7 +59,7 @@
 								</owl-carousel-o>
 							</div>
 							<div class="col-4 mediachild">
-								<owl-carousel-o [options]="customOptions">
+								<owl-carousel-o class="sova" [options]="customOptions">
 									<ng-template *ngFor="let vid of dataDetails.trailers" carouselSlide>
 										<div class="slide">
 											<iframe width="450" height="280" allowTransparency="true"
