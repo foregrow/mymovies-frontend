@@ -27,6 +27,9 @@ import { PhotoService } from './services/photo.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UsermtsService } from './services/usermts.service';
 import { TranslateApiService } from './services/translate-api.service';
+import { MoviesDialogComponent } from './components/main/movies-dialog/movies-dialog.component';
+import { ImdbApiService } from './services/imdb-api.service';
+import { TopMoviesComponent } from './components/main/top-movies/top-movies.component';
 
 const pipes=[SeasonsFilterPipe,
   EpisodesFilterPipe,
@@ -38,8 +41,8 @@ const pipes=[SeasonsFilterPipe,
     AppComponent,
     routingComponents,
     pipes
-    
   ],
+  entryComponents:[MoviesDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -51,7 +54,7 @@ const pipes=[SeasonsFilterPipe,
     CarouselModule,
     ScrollingModule
   ],
-  providers: [TranslateApiService,UsermtsService,ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,PhotoService,
+  providers: [ImdbApiService,TranslateApiService,UsermtsService,ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,PhotoService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

@@ -450,7 +450,7 @@ export class MtsdetailComponent implements OnInit {
             })
           }
           let mts = new MovieTvShow(0, name, description, storyline, lengthMinutes, releaseDate, releaseYear, type,
-            country, language, trailers, undefined, undefined, undefined, undefined, this.chosenGenres, undefined);
+            country, language, 0,trailers, undefined, undefined, undefined, undefined, this.chosenGenres, undefined);
           this._mtss.add(mts).subscribe(
             data => {
               alert("Successfully created!");
@@ -461,7 +461,7 @@ export class MtsdetailComponent implements OnInit {
           );
         } else if (param === 'edit') {
           let mts = new MovieTvShow(this.movietvshow.id, name, description, storyline, lengthMinutes, releaseDate, releaseYear, type,
-            country, language);
+            country, language,0);
           this._mtss.update(mts).subscribe(
             data => {
               alert("Details successfully updated!");

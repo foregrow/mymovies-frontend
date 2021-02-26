@@ -7,6 +7,8 @@ export const environment = {
   adminRole: "ADMIN",
   userRole: "USER",
   backendApiURL: 'http://localhost:8080',
+  //imdbApiURL: 'https://imdb8.p.rapidapi.com/auto-complete',
+  imdbApiURL: 'https://imdb8.p.rapidapi.com/title/find', 
   translateApiURL: 'https://google-translate1.p.rapidapi.com/language/translate/v2',
   youtubeVideosApiURL: 'https://www.googleapis.com/youtube/v3/videos',
   externalApiBaseURL: 'https://api-web.ug-be.cdn.united.cloud',

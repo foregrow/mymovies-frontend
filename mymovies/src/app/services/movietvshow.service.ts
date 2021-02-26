@@ -34,8 +34,16 @@ export class MovietvshowService {
     return this._http.get<any>(`${MovietvshowService.entityBaseURL}/namecontains/${name}`);
   }
 
+  findByMovieData(movie): Observable<any>{
+    return this._http.get<any>(`${MovietvshowService.entityBaseURL}/movie-data/${movie.title}/${movie.year}/${movie.length}`);
+  }
+
   add(data:any){
     return this._http.post<any>(MovietvshowService.entityBaseURL,data);
+  }
+
+  addImdbMovies(data:any){
+    return this._http.post<any>(`${MovietvshowService.entityBaseURL}/add-imdb-movies`,data);
   }
 
   update(data:any){

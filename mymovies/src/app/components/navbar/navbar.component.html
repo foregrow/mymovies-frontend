@@ -9,6 +9,9 @@
             <li>
                 <a (click)="channels()"><i class="fa fa-television" aria-hidden="true">Channels</i></a>
             </li>
+            <li *ngIf="us.getRole()==='USER'">
+                <a (click)="topRated()"><i class="fa fa-star" aria-hidden="true"> Top Rated</i></a>
+            </li>
 
             <li *ngIf="us.getRole()==='ADMIN'">
                 <a (click)="users()">

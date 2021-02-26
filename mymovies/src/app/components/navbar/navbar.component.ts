@@ -41,6 +41,9 @@ export class NavbarComponent implements OnInit {
   channels() {
     this.router.navigate(['channels-movies']);
   }
+  topRated() {
+    this.router.navigate(['top-rated']);
+  }
 
   users(){
     this.router.navigate(['admin/users']);

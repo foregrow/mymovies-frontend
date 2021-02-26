@@ -11,7 +11,7 @@
                         </div>
                         <div class="row mediaparent">
                             <div class="col-3 mediachild">
-                                <owl-carousel-o [options]="customOptions">
+                                <owl-carousel-o *ngIf="dataDetails.photos?.length>0;else noPhoto" [options]="customOptions">
                                     <ng-template *ngFor="let p of dataDetails.photos" carouselSlide>
                                         <div class="slide">
                                             <img class="mtsimgs img-fluid img-thumbnail" [src]="p.path" width="200">
@@ -19,6 +19,12 @@
 
                                     </ng-template>
                                 </owl-carousel-o>
+                                <ng-template #noPhoto>
+									<div>
+										<img class="img-thumbnail" 
+											src="../../../assets/pavatar.png">
+									</div>
+								</ng-template>
                             </div>
                         </div>
                         <div class="w-50">

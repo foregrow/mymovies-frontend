@@ -30,10 +30,10 @@
 						
 						<div>
 							<div class="ratings" *ngFor="let i of usermtsRatings">
-								<i class="fa fa-star text-warning"></i>	
+								<i class="fa fa-star text-warning" (click)="ratings(i,'light')"></i>	
 							</div>
 							<div class="ratings" *ngFor="let i of usermtsRatingsDif">
-								<i class="fa fa-star text-dark"></i>	
+								<i class="fa fa-star text-dark" (click)="ratings(i,'dark')"></i>	
 							</div>
 						</div>
 						<br>
@@ -49,14 +49,20 @@
 
 						<div class="row mediaparent">
 							<div class="col-3 mediachild">
-								<owl-carousel-o class="sova" [options]="customOptions">
+								<owl-carousel-o class="sova" *ngIf="dataDetails.photos?.length>0;else noPhoto" [options]="customOptions">
 									<ng-template *ngFor="let p of dataDetails.photos" carouselSlide>
-										<div class="slide">
+										<div class="slide" >
 											<img class="img-fluid img-thumbnail mtsimgs" [src]="p.path" width="200">
 										</div>
 
 									</ng-template>
 								</owl-carousel-o>
+								<ng-template #noPhoto>
+									<div>
+										<img class="img-thumbnail" style="height: 300px;width: 200px;" 
+											src="../../../assets/mavatar.jpg">
+									</div>
+								</ng-template>
 							</div>
 							<div class="col-4 mediachild">
 								<owl-carousel-o class="sova" [options]="customOptions">

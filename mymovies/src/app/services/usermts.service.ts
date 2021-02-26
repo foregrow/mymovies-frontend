@@ -23,6 +23,10 @@ export class UsermtsService {
   getByEmailAndMTSId(email,mtsid): Observable<any>{
     return this._http.get<any>(`${UsermtsService.entityBaseURL}/emailmts/${email}/${+mtsid}`);
   }
+  newUserRating(email,mtsid,newRating): Observable<any>{
+    return this._http.get<any>(`${UsermtsService.entityBaseURL}/user-rating/${email}/${mtsid}/${newRating}`);
+  }
+  
 
   add(data:any){
     return this._http.post<any>(UsermtsService.entityBaseURL,data);

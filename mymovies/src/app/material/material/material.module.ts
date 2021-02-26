@@ -8,7 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-
+import {MatDialogModule} from '@angular/material/dialog';
 const MaterialComponents = [
   MatFormFieldModule,
   MatAutocompleteModule,
@@ -18,7 +18,8 @@ const MaterialComponents = [
   MatSortModule,
   MatToolbarModule,
   MatButtonModule,
-  MatIconModule
+  MatIconModule,
+  MatDialogModule
 ];
 
 @NgModule({

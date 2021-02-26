@@ -16,6 +16,9 @@ menu{
 .ratings{
 	float: left;
 }
+.no-ratings{
+	float: left;
+}
 .desc{
 	color: white;
 	margin-bottom: 20px;

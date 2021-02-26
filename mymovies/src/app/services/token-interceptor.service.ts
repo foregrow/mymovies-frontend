@@ -40,8 +40,17 @@ export class TokenInterceptorService implements HttpInterceptor {
     }else if(req.url.startsWith(environment.translateApiURL)){
       const headers = {
         "content-type": "application/x-www-form-urlencoded",
-        "x-rapidapi-key": "a225a022e8msh84e552666e643f7p18e7cdjsne8e16d9866bc",
+        "x-rapidapi-key": "bfe6822b6amsh13225f9a212e874p117312jsn3b6c295cc365",
         "x-rapidapi-host": "google-translate1.p.rapidapi.com",
+        "useQueryString": "true"
+      }
+      tokenizedReq = req.clone({
+        setHeaders: headers,
+      });
+    }else if(req.url.startsWith(environment.imdbApiURL)){
+      const headers = {
+        "x-rapidapi-key": "bfe6822b6amsh13225f9a212e874p117312jsn3b6c295cc365",
+        "x-rapidapi-host": "imdb8.p.rapidapi.com",
         "useQueryString": "true"
       }
       tokenizedReq = req.clone({
