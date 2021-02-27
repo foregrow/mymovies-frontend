@@ -131,3 +131,22 @@ hr{
 	cursor: pointer;
 	transform: scale(1.1);
 }
+
+.starrating:hover {
+	opacity: 1;
+	cursor: pointer;
+	transform: scale(1.2);
+}
+
+.eptable{
+	border: none;
+	color: rgb(255, 255, 255);
+	opacity: 0.8;
+	background-color: #141414;
+}
+.eptable:hover{
+	opacity: 1;
+}
+.wlwl:hover{
+	cursor: pointer;
+}

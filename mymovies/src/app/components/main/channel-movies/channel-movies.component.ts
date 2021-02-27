@@ -12,6 +12,7 @@ import { MoviesDialogComponent } from '../movies-dialog/movies-dialog.component'
 import { ImdbApiService } from 'src/app/services/imdb-api.service';
 import { ImdbMovie } from 'src/app/models/imdbmovie';
 import { MovietvshowService } from 'src/app/services/movietvshow.service';
+import { SpinnerService } from 'src/app/services/spinner.service';
 @Component({
   selector: 'app-channel-movies',
   templateUrl: './channel-movies.component.html',
@@ -33,12 +34,20 @@ export class ChannelMoviesComponent implements OnInit {
     private _ts: TranslateApiService,
     private _imdbs: ImdbApiService,
     private _mtss: MovietvshowService,
+    private _spinnerService:SpinnerService,
     public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.getMovies();
+    
   }
+  // spinnerEnd(){
+  //   if(this.dataSource?.data.length>0){
+  //     this._spinnerService.requestEnded();
+  //   }
+    
+  // }
   addImdbMovies(imdbMovies){
     this._mtss.addImdbMovies(imdbMovies).subscribe(
       ()=>{
@@ -49,23 +58,25 @@ export class ChannelMoviesComponent implements OnInit {
   getImdbMoviesByTitle(title){
     this._imdbs.getMoviesByTitle(title).subscribe(
       data=>{
-        //console.log(data);
         let resOfData = data['results'];
-        this.foundImdbMovies = resOfData.splice(0,5); //first 5 results
         let imdbMovies = [];
-        this.foundImdbMovies.forEach(m=>{
-          let imdbMovie=null;
-          if(m['id'].startsWith('/title/tt')){
-            imdbMovie = {
-              length: m['runningTimeInMinutes'],
-              title: m['title'],
-              type: m['titleType'],
-              year: m['year'],
-            }
-            imdbMovies.push(imdbMovie);
-          }    
-        });
-        this.addImdbMovies(imdbMovies);
+        if(resOfData && resOfData.length>0){
+          this.foundImdbMovies = resOfData.splice(0,3); //first 3 results
+          
+          this.foundImdbMovies.forEach(m=>{
+            let imdbMovie=null;
+            if(m['id'].startsWith('/title/tt')){
+              imdbMovie = {
+                length: m['runningTimeInMinutes'],
+                title: m['title'],
+                type: m['titleType'],
+                year: m['year'],
+              }
+              imdbMovies.push(imdbMovie);
+            }    
+          });
+          this.addImdbMovies(imdbMovies);    
+        }
         this.dialog.open(MoviesDialogComponent,{data:imdbMovies});
       },err=>{console.error(err);}
     );
@@ -102,11 +113,13 @@ export class ChannelMoviesComponent implements OnInit {
                     && DateUtils.isMovieInFuture(movie['startTime'])) {
                       channelMovie = new ChannelMovie(counter++, movie['id'], movie['title'], movie['startTime'], movie['endTime'], channelName);
                       this.movies.push(channelMovie);
+                      
                   }
                 }
 
               }
               this.setDataSource();
+              //this.spinnerEnd();
             }, error => { console.log(error) });
         }
 
@@ -115,9 +128,11 @@ export class ChannelMoviesComponent implements OnInit {
   }
 
   setDataSource() {
+
     this.dataSource.data = this.movies;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    
   }
 
   applyFilter(filterValue: string) {

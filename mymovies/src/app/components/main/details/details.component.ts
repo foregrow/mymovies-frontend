@@ -32,6 +32,9 @@ export class DetailsComponent implements OnInit {
   addEditIdParam;
   typeParam;
   dataDetails;
+  inWatchlater = false;
+  inWatchlist = false;
+  usermts;
   urlCache = new Map<string, SafeResourceUrl>();
   constructor(private _route: ActivatedRoute,
     private _router: Router,
@@ -55,6 +58,7 @@ export class DetailsComponent implements OnInit {
     }
     return url;
   }
+  
 
   getData() {
     this._mtss.getById(this.addEditIdParam).subscribe(
@@ -62,18 +66,23 @@ export class DetailsComponent implements OnInit {
         this.dataDetails = data;
         console.log(this.dataDetails);
         if (this._router.url.startsWith('/movie-details')) {
-          this.getUsersRating();
+          this.getUsersRatingAndWL();
         }
       },
       error => { console.error(error); }
     );
   }
-
-  getUsersRating() {
+  
+  getUsersRatingAndWL() {
     this.dataDetails.users.filter(usermts => {
       if (usermts.user.email === this._us.getEmailFromToken()) {
         this.currentUserRating = usermts.userRating;
         this.calculateUserRatingAndDif(this.currentUserRating);
+        if(usermts.watchLater)
+          this.inWatchlater = true;
+        if(usermts.watchlist)
+          this.inWatchlist = true;
+        
       }
     });
     if(this.currentUserRating===0){
@@ -81,18 +90,39 @@ export class DetailsComponent implements OnInit {
         this.usermtsRatingsDif.push(i);
     }
   }
-  ratings(i,param){
-    let star = i+1;
-    console.log("clicked star:"+star,"param:"+param,"current rating:"+this.currentUserRating);
-    
-    if(param==='dark'){
-      star += this.currentUserRating;
-    }
-    this._umtss.newUserRating(this._us.getEmailFromToken(),this.dataDetails.id,star).subscribe(
-      data=>{console.log(data);}
+  updateDetails(star,param,wlParam){
+    this._umtss.updateDetails(this._us.getEmailFromToken(),this.dataDetails.id,star,param,wlParam).subscribe(
+      data=>{
+        this.usermtsRatings = [];
+        this.usermtsRatingsDif = [];
+        this.getData(); 
+        console.log(param)  
+      }
     );
   }
-
+  ratings(i,dOrlParam,param){
+    let star = i+1; 
+    if(dOrlParam==='dark'){
+      star += this.currentUserRating;
+      this.updateDetails(star,param,false);
+    }else if(dOrlParam==='light' && this.currentUserRating !== star){
+      this.updateDetails(star,param,false);
+    }
+  }
+  addOrRemoveWL(param,wlParam){
+    if(param==='watchlist'){
+      if(wlParam)
+        this.inWatchlist = true;
+      else
+        this.inWatchlist = false
+    }else if(param==='watchlater'){
+      if(wlParam)
+        this.inWatchlater = true;
+      else
+        this.inWatchlater = false
+    }
+    this.updateDetails(-1,param,wlParam);
+  }
   calculateUserRatingAndDif(userRating) {
     let maxStars = 5; 
     let ratingDif = maxStars - userRating;
@@ -109,19 +139,31 @@ export class DetailsComponent implements OnInit {
 
   seasonEpisodes;
   seasonChosen = false;
+  lastClickedSeasonSN = -1;
   clickedSeason(sserialNumber) {
-    let seasonArray = this.dataDetails.seasons.filter(season => {
-      return season.serialNumber === sserialNumber;
-    });
-    if (seasonArray) {
-      this.seasonChosen = true;
-      this.seasonEpisodes = seasonArray[0].episodes;
-      console.log(this.seasonEpisodes);
-    }
-    else {
+    
+    if(this.lastClickedSeasonSN === sserialNumber){
       this.seasonEpisodes;
       this.seasonChosen = false;
+      this.lastClickedSeasonSN = -1;
+    }else{
+      let seasonArray = this.dataDetails.seasons.filter(season => {
+        return season.serialNumber === sserialNumber;
+      });
+      if (seasonArray) {
+        this.seasonChosen = true;
+        this.seasonEpisodes = seasonArray[0].episodes;
+        this.lastClickedSeasonSN = sserialNumber;
+      }
+      else {
+        this.seasonEpisodes;
+        this.seasonChosen = false;
+        this.lastClickedSeasonSN = -1;
+
+      }
+      
     }
+    //this.lastClickedSeasonSN = sserialNumber;
 
   }
 

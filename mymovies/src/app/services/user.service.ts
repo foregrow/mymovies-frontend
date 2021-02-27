@@ -25,7 +25,9 @@ export class UserService {
   getById(id:any): Observable<any>{
     return this._http.get<any>(`${UserService.entityBaseURL}/${+id}`);
   }
-
+  getByEmail(email): Observable<any>{
+    return this._http.get<any>(`${UserService.entityBaseURL}/user-email/${email}`);
+  }
   add(data:any){
     return this._http.post<any>(UserService.entityBaseURL,data);
   }

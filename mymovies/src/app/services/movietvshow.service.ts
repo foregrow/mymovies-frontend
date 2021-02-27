@@ -21,6 +21,7 @@ export class MovietvshowService {
     return this._http.get<any>(`${MovietvshowService.entityBaseURL}/movies`);
   }
 
+
   getAllTVShows() : Observable<any>{
     return this._http.get<any>(`${MovietvshowService.entityBaseURL}/tvshows`);
   }

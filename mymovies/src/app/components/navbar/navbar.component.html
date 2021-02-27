@@ -6,13 +6,16 @@
             <li>
                 <a (click)="home()"><i class="fa fa-home" aria-hidden="true">Home</i></a>
             </li>
+            <li *ngIf="us.getRole()==='USER'">
+                <a (click)="userProfile()"><i class="fa fa-user" aria-hidden="true"> Profile</i></a>
+            </li>
             <li>
                 <a (click)="channels()"><i class="fa fa-television" aria-hidden="true">Channels</i></a>
             </li>
             <li *ngIf="us.getRole()==='USER'">
                 <a (click)="topRated()"><i class="fa fa-star" aria-hidden="true"> Top Rated</i></a>
             </li>
-
+            
             <li *ngIf="us.getRole()==='ADMIN'">
                 <a (click)="users()">
                     <i class="fa fa-user-circle-o" aria-hidden="true">Users</i></a>

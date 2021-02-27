@@ -13,8 +13,7 @@ export class MoviesDialogComponent implements OnInit {
   private _mtss:MovietvshowService,
   private _router:Router) { }
   mts;
-  ngOnInit(): void {
-    
+  ngOnInit(): void { 
   }
   movieDetails(movie){
     this._mtss.findByMovieData(movie).subscribe(

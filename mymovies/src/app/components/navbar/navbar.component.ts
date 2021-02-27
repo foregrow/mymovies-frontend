@@ -44,7 +44,9 @@ export class NavbarComponent implements OnInit {
   topRated() {
     this.router.navigate(['top-rated']);
   }
-
+  userProfile(){
+    this.router.navigate(['user-profile']);
+  }
   users(){
     this.router.navigate(['admin/users']);
   }

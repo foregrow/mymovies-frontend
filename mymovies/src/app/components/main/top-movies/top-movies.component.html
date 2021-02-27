@@ -1,1 +1,28 @@
-<p>top-movies works!</p>
+<div class="container mt-5">
+    <h3 class="mb-5 mt-1">Top Rated Movies</h3>
+
+    <div *ngIf="movies">
+        <div class="well mb-3" *ngFor="let obj of movies">
+            <!-- if movietvshows -->
+            <div class="media" *ngIf="obj.avgRating>0" (click)="mtsOrPersonDetails('mts',obj.id)">
+                <a class="pull-left mr-1" href="#">
+                    <!-- <img class="media-object h-100" src="http://placekitten.com/150/150"> -->
+                    <img class="img-thumbnail" style="height: 200px;width: 150px;" *ngIf="obj.photos.length>0;else noPhoto"
+                     [src]="obj.photos[0].path">
+                    <ng-template #noPhoto>
+                        <div>
+                            <img class="img-thumbnail" style="height: 200px;width: 150px;" 
+                                src="../../../assets/mavatar.jpg">
+                        </div>
+                    </ng-template>
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{obj.name}} | {{obj.type}} | ({{obj.releaseYear}}) |
+                        {{obj.lengthMinutes}} min | {{obj.language}} | ({{obj.avgRating}}<i class="fa fa-star-o" aria-hidden="true"></i> - {{obj.users.length}} Votes)
+                    </h4>
+                    <p>{{obj.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

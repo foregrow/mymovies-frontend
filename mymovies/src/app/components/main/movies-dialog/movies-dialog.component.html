@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Movies</h2>
-<mat-dialog-content>
+<mat-dialog-content *ngIf="data&&data.length>0;else noData">
   <table class="table table-hover">
     <thead>
       <tr>
@@ -12,4 +12,10 @@
       </tr>
     </tbody>
   </table>
+</mat-dialog-content>
+<mat-dialog-content>
+  <ng-template #noData>
+    <p>No data.</p>
+  </ng-template>
+  
 </mat-dialog-content>

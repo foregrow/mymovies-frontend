@@ -27,13 +27,22 @@
 							</div>
 						</div>
 						<br>
-						
+						<div class="wlwl">
+							<i *ngIf="!inWatchlist" (click)="addOrRemoveWL('watchlist',true)" class="fa fa-plus" aria-hidden="true"> Add to Watchlist</i>
+							<i *ngIf="inWatchlist" (click)="addOrRemoveWL('watchlist',false)" class="fa fa-eraser" aria-hidden="true"> Remove from Watchlist</i>
+
+						</div>
+						<div class="wlwl" >
+							<i *ngIf="!inWatchlater" (click)="addOrRemoveWL('watchlater',true)" class="fa fa-plus" aria-hidden="true"> Watchlater</i>
+							<i *ngIf="inWatchlater" (click)="addOrRemoveWL('watchlater',false)" class="fa fa-eraser" aria-hidden="true"> Remove from watchlater</i>
+
+						</div>
 						<div>
 							<div class="ratings" *ngFor="let i of usermtsRatings">
-								<i class="fa fa-star text-warning" (click)="ratings(i,'light')"></i>	
+								<i class="fa fa-star text-warning starrating" (click)="ratings(i,'light','newRating')"></i>	
 							</div>
 							<div class="ratings" *ngFor="let i of usermtsRatingsDif">
-								<i class="fa fa-star text-dark" (click)="ratings(i,'dark')"></i>	
+								<i class="fa fa-star text-dark starrating" (click)="ratings(i,'dark','newRating')"></i>	
 							</div>
 						</div>
 						<br>
@@ -79,19 +88,17 @@
 								</owl-carousel-o>
 							</div>
 							<div *ngIf="seasonChosen" class="col-4 mediachild ff">
-								<table class="table table-hover w-50" style="color: white;">
+								<table *ngIf="seasonEpisodes.length>0" class="table eptable">
 									<thead>
 									  <tr>
-										<th>#</th>
-										<th> SN</th>
+										<th> Episode Serial Number</th>
 										<th> Name</th>
 									  </tr>
 									
 									</thead>
 									<tbody *ngFor="let episode of seasonEpisodes | episodesFilter;index as i">
-							
-									  <tr *ngIf="seasonEpisodes.length>0;else">
-										<td>{{i+1}}</td>
+										
+									  <tr>
 										<td>{{episode.serialNumber}}</td>
 										<td>{{episode.name}}</td>
 									</tr>

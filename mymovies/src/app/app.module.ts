@@ -29,7 +29,7 @@ import { UsermtsService } from './services/usermts.service';
 import { TranslateApiService } from './services/translate-api.service';
 import { MoviesDialogComponent } from './components/main/movies-dialog/movies-dialog.component';
 import { ImdbApiService } from './services/imdb-api.service';
-import { TopMoviesComponent } from './components/main/top-movies/top-movies.component';
+import { SpinnerService } from './services/spinner.service';
 
 const pipes=[SeasonsFilterPipe,
   EpisodesFilterPipe,
@@ -54,7 +54,7 @@ const pipes=[SeasonsFilterPipe,
     CarouselModule,
     ScrollingModule
   ],
-  providers: [ImdbApiService,TranslateApiService,UsermtsService,ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,PhotoService,
+  providers: [SpinnerService,ImdbApiService,TranslateApiService,UsermtsService,ExternalApiService,AuthGuard,UserService,PersonService,DatePipe,MovietvshowService,GenreService,PersonmtsService,SeasonService,EpisodeService,PhotoService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

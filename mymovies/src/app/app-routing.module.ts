@@ -23,6 +23,8 @@ import { DetailsPersonsComponent } from './components/main/details-persons/detai
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MoviesDialogComponent } from './components/main/movies-dialog/movies-dialog.component';
 import { TopMoviesComponent } from './components/main/top-movies/top-movies.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { UserDetailsComponent } from './components/main/user-details/user-details.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'main', pathMatch: 'full'},
@@ -57,6 +59,11 @@ const routes: Routes = [
       roles: ['USER','ADMIN']
     },
   },
+  {path:"user-profile", component:UserDetailsComponent, canActivate:[AuthGuard,RoleGuard],
+  data: {
+      roles: ['USER']
+    },
+  },
   {path:"movie-details/:id", component:DetailsComponent, canActivate:[AuthGuard,RoleGuard],
   data: {
       roles: ['USER']
@@ -85,4 +92,5 @@ const routes: Routes = [
 export class AppRoutingModule { }
 export const routingComponents = [NavbarComponent,ErrorComponent,LoginComponent,AdminComponent,MainComponent,ChannelMoviesComponent,RegisterComponent,
 UsersComponent,GenresComponent,SeasonsComponent,EpisodesComponent,PersonsComponent,PersondetailComponent,MtsComponent,MtsdetailComponent,
-SeasondetailComponent,EpisodedetailComponent,DetailsComponent,DetailsPersonsComponent,MoviesDialogComponent,TopMoviesComponent]
+SeasondetailComponent,EpisodedetailComponent,DetailsComponent,DetailsPersonsComponent,MoviesDialogComponent,TopMoviesComponent,SpinnerComponent,
+UserDetailsComponent]
