@@ -57,12 +57,6 @@ export class MainComponent implements OnInit {
     }
 
   }
-  // getPersons(){
-  //   this._ps.getAll().subscribe(
-  //     data=>{this.persons=data,console.log(this.persons);},
-  //     error=>{console.log(error);}
-  //   );
-  // }
   chosenEntity = new FormControl();
   getExternalToken() {
     this._externalApiService.getExternalAccessToken().subscribe(
@@ -100,17 +94,14 @@ export class MainComponent implements OnInit {
     }
 
   }
-  channelsMovies() {
-    this._router.navigate(['channels-movies']);
-  }
-
   mtsOrPersonDetails(param, id) {
     if (param === 'mts') {
+      this._us.emit<string>('');
       this._router.navigate([`movie-details/${id}`]);
     } else if (param === 'person') {
+      this._us.emit<string>('');
       this._router.navigate([`person-details/${id}`]);
     }
-    // this._router.navigate(['search']);
   }
 
 }

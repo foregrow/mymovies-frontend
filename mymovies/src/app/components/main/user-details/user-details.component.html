@@ -1,36 +1,43 @@
-<div *ngIf="user && user.moviesTvShows">
-    <div class="container-fluid pl-5 pr-5 mt-5">
-        <h3>Watchlater</h3>
-        <div class="row" *ngFor="let umts of user.moviesTvShows;index as i">
-            <div class="col-md-2" *ngIf="umts.watchLater">
+<!-- <div class="container-fluid pl-5 pr-5 mt-5">
+    <h3>Watchlater</h3>
+    <div *ngIf="user && user.moviesTvShows">
+        <div class="row mt-5 allmoviesrow">
+            <div class="col-md-2" *ngFor="let umts of user.moviesTvShows;index as i">
+                    <img class="img-fluid img-thumbnail" *ngIf="umts.movieTvShow.photos.length>0;else noPhoto"
+                        (click)="mtsOrPersonDetails('mts',umts.movieTvShow.id)" [src]="umts.movieTvShow.photos[0].path">
+                    <ng-template #noPhoto>
+                        <div>
+                            <img class="img-fluid img-thumbnail" (click)="mtsOrPersonDetails('mts',umts.movieTvShow.id)"
+                                src="../../../assets/mavatar.jpg">
+                        </div>
+                    </ng-template>
+                    <figcaption class="figure-caption">
+                        {{umts.movieTvShow.name}} ({{umts.movieTvShow.releaseYear}})</figcaption>
                 
-                <img  class="img-fluid img-thumbnail" *ngIf="umts.movieTvShow.photos.length>0;else noPhoto"
-                    (click)="mtsOrPersonDetails('mts',umts.movieTvShow.id)" [src]="umts.movieTvShow.photos[0].path">
-                <ng-template #noPhoto>
-                    <div>
-                        <img class="img-fluid img-thumbnail" (click)="mtsOrPersonDetails('mts',umts.movieTvShow.id)"
-                            src="../../../assets/mavatar.jpg">
-                    </div>
-                </ng-template>
-                <figcaption class="figure-caption">
-                    {{umts.movieTvShow.name}} ({{umts.movieTvShow.releaseYear}})</figcaption>
-
-            </div>
-            
-            <div class="col-md-2" *ngIf="umts.watchlist">    
-                <img class="img-fluid img-thumbnail" *ngIf="umts.movieTvShow.photos.length>0;else noPhoto"
-                    (click)="mtsOrPersonDetails('mts',umts.movieTvShow.id)" [src]="umts.movieTvShow.photos[0].path">
-                <ng-template #noPhoto>
-                    <div>
-                        <img class="img-fluid img-thumbnail" (click)="mtsOrPersonDetails('mts',umts.movieTvShow.id)"
-                            src="../../../assets/mavatar.jpg">
-                    </div>
-                </ng-template>
-                <figcaption class="figure-caption">
-                    {{umts.movieTvShow.name}} ({{umts.movieTvShow.releaseYear}})</figcaption>
 
             </div>
         </div>
     </div>
- 
-</div>
+    <h3>Watchlater</h3>
+    <div *ngIf="user && user.moviesTvShows">
+        <div class="row mt-5 allmoviesrow">
+            <div class="col-md-2" *ngFor="let umts of user.moviesTvShows;index as i"> 
+                    
+                    <img class="img-fluid img-thumbnail" *ngIf="umts.movieTvShow.photos.length>0;else noPhoto"
+                        (click)="mtsOrPersonDetails('mts',umts.movieTvShow.id)" [src]="umts.movieTvShow.photos[0].path">
+                    <ng-template #noPhoto>
+                        <div>
+                            <img  class="img-fluid img-thumbnail" (click)="mtsOrPersonDetails('mts',umts.movieTvShow.id)"
+                                src="../../../assets/mavatar.jpg">
+                        </div>
+                    </ng-template>
+                    <figcaption class="figure-caption">
+                        {{umts.movieTvShow.name}} ({{umts.movieTvShow.releaseYear}})</figcaption>
+                
+                    
+                    
+
+            </div>
+        </div>
+    </div>
+</div> -->

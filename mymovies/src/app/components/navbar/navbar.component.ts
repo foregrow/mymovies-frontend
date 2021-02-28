@@ -29,22 +29,27 @@ export class NavbarComponent implements OnInit {
       this.home();
     }
     this.us.emit<string>(param);
+    console.log(param)
     
   }
 
   home() {
+    this.us.emit<string>('');
     if (this.us.getRole() === 'ADMIN')
       this.router.navigate([AdminComponent]);
     else if (this.us.getRole() === 'USER')
       this.router.navigate([MainComponent]);
   }
   channels() {
+    this.us.emit<string>('');
     this.router.navigate(['channels-movies']);
   }
   topRated() {
+    this.us.emit<string>('');
     this.router.navigate(['top-rated']);
   }
   userProfile(){
+    this.us.emit<string>('');
     this.router.navigate(['user-profile']);
   }
   users(){

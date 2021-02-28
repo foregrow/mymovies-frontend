@@ -1,7 +1,14 @@
-.filter{
-    color: white;
-}
 
 .fff:hover{
     cursor: pointer;
+}
+.table-cell{
+    color: white;
+}
+.mat-table{
+    background-color: #222222;
+}
+.mat-pag{
+    color: white;
+    background-color: #222222;
 }
