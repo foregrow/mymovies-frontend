@@ -21,7 +21,6 @@ export class TopMoviesComponent implements OnInit {
     this._mtss.getAllMovies().subscribe(
       data=>{
         this.movies = data;
-        console.log(this.movies);
       }
     )
   }
