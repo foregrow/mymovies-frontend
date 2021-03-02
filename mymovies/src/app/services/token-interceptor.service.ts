@@ -6,6 +6,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/envs';
+import { environmentKeys } from 'src/environments/apikeys';
 import { SpinnerService } from './spinner.service';
 
 @Injectable({
@@ -44,7 +45,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       //this._spinnerService.requestStarted();
       const headers = {
         "content-type": "application/x-www-form-urlencoded",
-        "x-rapidapi-key": environment.rapidapiKeyGT,
+        "x-rapidapi-key": environmentKeys.rapidapiKeyGT,
         "x-rapidapi-host": "google-translate1.p.rapidapi.com",
         "useQueryString": "true"
       }
@@ -54,7 +55,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     }else if(req.url.startsWith(environment.imdbApiURL)){
       this._spinnerService.requestStarted();
       const headers = {
-        "x-rapidapi-key": environment.rapidapiKeyIMDB,
+        "x-rapidapi-key": environmentKeys.rapidapiKeyIMDB,
         "x-rapidapi-host": "imdb8.p.rapidapi.com",
         "useQueryString": "true"
       }
