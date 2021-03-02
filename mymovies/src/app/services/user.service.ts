@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/envs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,7 @@ export class UserService {
   getAll() : Observable<any>{
     return this._http.get<any>(UserService.entityBaseURL);
   }
+  
 
   getById(id:any): Observable<any>{
     return this._http.get<any>(`${UserService.entityBaseURL}/${+id}`);

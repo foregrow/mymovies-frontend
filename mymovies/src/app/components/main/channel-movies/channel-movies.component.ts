@@ -6,11 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ChannelMovie } from 'src/app/models/channelmovie';
 import { MatSort } from '@angular/material/sort';
 import { TranslateApiService } from 'src/app/services/translate-api.service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/envs';
 import {MatDialog} from '@angular/material/dialog';
 import { MoviesDialogComponent } from '../movies-dialog/movies-dialog.component';
 import { ImdbApiService } from 'src/app/services/imdb-api.service';
-import { ImdbMovie } from 'src/app/models/imdbmovie';
 import { MovietvshowService } from 'src/app/services/movietvshow.service';
 import { SpinnerService } from 'src/app/services/spinner.service';
 @Component({

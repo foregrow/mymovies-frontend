@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { debounceTime, delay, retryWhen, take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/envs';
 @Injectable({
   providedIn: 'root'
 })

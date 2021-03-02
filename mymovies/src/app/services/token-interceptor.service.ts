@@ -5,7 +5,7 @@ import { ExternalApiService } from './external-api.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/envs';
 import { SpinnerService } from './spinner.service';
 
 @Injectable({
