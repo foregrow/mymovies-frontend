@@ -44,7 +44,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       //this._spinnerService.requestStarted();
       const headers = {
         "content-type": "application/x-www-form-urlencoded",
-        "x-rapidapi-key": "bfe6822b6amsh13225f9a212e874p117312jsn3b6c295cc365",
+        "x-rapidapi-key": environment.rapidapiKeyGT,
         "x-rapidapi-host": "google-translate1.p.rapidapi.com",
         "useQueryString": "true"
       }
@@ -54,7 +54,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     }else if(req.url.startsWith(environment.imdbApiURL)){
       this._spinnerService.requestStarted();
       const headers = {
-        "x-rapidapi-key": "bfe6822b6amsh13225f9a212e874p117312jsn3b6c295cc365",
+        "x-rapidapi-key": environment.rapidapiKeyIMDB,
         "x-rapidapi-host": "imdb8.p.rapidapi.com",
         "useQueryString": "true"
       }

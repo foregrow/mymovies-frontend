@@ -31,6 +31,9 @@ export const environment = {
   trailers: 'trailers',
 
   movieCategory: 201,
+
+  rapidapiKeyGT: '9d86909905mshc867a3f9386b5a1p115fa8jsnb1c3510dfb91',
+  rapidapiKeyIMDB: 'bfe6822b6amsh13225f9a212e874p117312jsn3b6c295cc365'
 };
 
 /*
