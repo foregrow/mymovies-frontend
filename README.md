@@ -1,4 +1,5 @@
-#SPA using Angular & Typescript
+# SPA using Angular & Typescript
+
 Frontend of mymovies app which uses external apis:
   1. YoutubeAPI for checking whether the video exists on youtube
   2. External API for getting channels' movies provided by SBB (https://epg.sbb.rs/)
